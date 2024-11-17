@@ -1,0 +1,83 @@
+% !TeX program = lualatex
+% !TeX encoding = utf8
+% !TeX spellcheck = uk_UA
+% !BIB program = biber
+
+%http://imfn.lviv.ua/zf/?page_id=190
+
+\documentclass{LabBook}
+\usetikzlibrary{shapes}
+\addbibresource{d:/Projects/LaTeX/MyPackage/MyBase.bib}
+
+\title{Оптика}
+\def\subtitle{Лабораторний практикум}
+%========================================================================================================
+%
+\input{CoverPage}%					      Титульна сторінка
+%
+%========================================================================================================
+\date{}
+\begin{document}
+\CoverPage
+\maketitle
+\makeinfopage
+\tableofcontents
+\thispagestyle{empty}
+\clearpage
+
+%========================================================================================================
+%
+%									      Вставка файлів розділів
+%
+%====================================================f====================================================
+
+%\renewcommand{\thechapter}{5.\arabic{chapter}}
+\newcommand{\ChaptersInterferention}{
+	Lab5_3p1,
+	Lab5_3p2,
+	Lab5_4,
+}
+\newcommand{\ChaptersDifraction}{
+	Lab5_5,
+}
+\newcommand{\ChaptersPolarization}{
+	Lab5_7,
+}
+%========================================================================================================
+\pagestyle{theorpart}
+\renewcommand{\theequation}{\thepart.\arabic{equation}}
+\renewcommand{\thefigure}{\thepart.\arabic{figure}}
+\include{Interferention/Interferention}
+\renewcommand{\theequation}{\thechapter.\arabic{equation}}
+\renewcommand{\thefigure}{\thechapter.\arabic{figure}}
+\labworklayout
+\pagestyle{main}
+\multiinclude{\ChaptersInterferention}[]
+%========================================================================================================
+\pagestyle{theorpart}
+\setcounter{section}{0}
+\setcounter{equation}{0}
+\setcounter{figure}{0}
+\renewcommand{\theequation}{\thepart.\arabic{equation}}
+\renewcommand{\thefigure}{\thepart.\arabic{figure}}
+\include{Difraction/Difraction}
+\renewcommand{\theequation}{\thechapter.\arabic{equation}}
+\renewcommand{\thefigure}{\thechapter.\arabic{figure}}
+\labworklayout
+\pagestyle{main}
+\multiinclude{Lab5_5}[]
+%========================================================================================================
+\pagestyle{theorpart}
+\setcounter{section}{0}
+\setcounter{equation}{0}
+\setcounter{figure}{0}
+\renewcommand{\theequation}{\thepart.\arabic{equation}}
+\renewcommand{\thefigure}{\thepart.\arabic{figure}}
+\renewcommand{\theequation}{\thepart.\arabic{equation}}
+\input{Polarization/Polarization}
+\renewcommand{\theequation}{\thechapter.\arabic{equation}}
+\renewcommand{\thefigure}{\thechapter.\arabic{figure}}
+\labworklayout
+\multiinclude{\ChaptersPolarization}[]
+
+\end{document}

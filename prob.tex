@@ -1,0 +1,25 @@
+% !TeX program = lualatex
+% !TeX encoding = utf8
+% !TeX spellcheck = uk_UA
+% !BIB program = biber
+
+
+\documentclass{LabBook}
+
+
+\begin{document}
+	\begin{tikzpicture}[scale=2, every pic/.style={scale=2}]
+        \pic at (0,0) {lava};
+        \pic[] (L) at (-3,1.8)  {laser};
+        \pic (P) at (3,0) {difrhole};
+%        \draw[dash dot] (-4,1.8) -- (4,1.8);
+	\end{tikzpicture}
+
+%\renewcommand{\thechapter}{5.\arabic{chapter}}
+%\newcommand{\Chapters}{
+%Lab5_4,	
+%}
+%%========================================================================================================
+%\multiinclude{\Chapters}[]
+
+\end{document}
