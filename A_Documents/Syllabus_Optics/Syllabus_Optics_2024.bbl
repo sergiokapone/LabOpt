@@ -240,6 +240,42 @@
       \verb https://ela.kpi.ua/handle/123456789/23244?mode=full
       \endverb
     \endentry
+    \entry{FTILabPractOpticsNew}{book}{}{}
+      \name{author}{2}{}{%
+        {{hash=a009f0ee4c288baaf50c53f37d29d94a}{%
+           family={Пономаренко},
+           familyi={П\bibinitperiod},
+           given={С.\bibnamedelimi М.},
+           giveni={С\bibinitperiod\bibinitdelim М\bibinitperiod}}}%
+        {{hash=8d360fe781239c25a24c7fb5c82adbd6}{%
+           family={Івнова},
+           familyi={І\bibinitperiod},
+           given={В.\bibnamedelimi В.},
+           giveni={В\bibinitperiod\bibinitdelim В\bibinitperiod}}}%
+      }
+      \list{language}{1}{%
+        {ukrainian}%
+      }
+      \list{publisher}{1}{%
+        {КПІ ім. Ігоря Сікорського}%
+      }
+      \strng{namehash}{61ccd40fe37b0961674cb73a4a7fb3dd}
+      \strng{fullhash}{61ccd40fe37b0961674cb73a4a7fb3dd}
+      \strng{fullhashraw}{61ccd40fe37b0961674cb73a4a7fb3dd}
+      \strng{bibnamehash}{61ccd40fe37b0961674cb73a4a7fb3dd}
+      \strng{authorbibnamehash}{61ccd40fe37b0961674cb73a4a7fb3dd}
+      \strng{authornamehash}{61ccd40fe37b0961674cb73a4a7fb3dd}
+      \strng{authorfullhash}{61ccd40fe37b0961674cb73a4a7fb3dd}
+      \strng{authorfullhashraw}{61ccd40fe37b0961674cb73a4a7fb3dd}
+      \field{sortinit}{6}
+      \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{pagetotal}{38}
+      \field{title}{Оптика. Лабораторний практикум}
+      \field{year}{2021}
+      \keyw{LabWork}
+    \endentry
     \entry{Ling}{book}{}{}
       \name{author}{3}{}{%
         {{hash=c72cfb5e68ef597719e0bfc9d549c36f}{%
@@ -272,8 +308,8 @@
       \strng{authornamehash}{a0f9227b753b266a04537eaca550ce83}
       \strng{authorfullhash}{1af1ea6c17acb8f41803ef7b2353d3f0}
       \strng{authorfullhashraw}{1af1ea6c17acb8f41803ef7b2353d3f0}
-      \field{sortinit}{6}
-      \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
+      \field{sortinit}{7}
+      \field{sortinithash}{108d0be1b1bee9773a1173443802c0a3}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{internalsortvolume}{3}
@@ -312,8 +348,8 @@
       \strng{authornamehash}{b14dea9f75ec6824071689113c5b3d02}
       \strng{authorfullhash}{b14dea9f75ec6824071689113c5b3d02}
       \strng{authorfullhashraw}{b14dea9f75ec6824071689113c5b3d02}
-      \field{sortinit}{7}
-      \field{sortinithash}{108d0be1b1bee9773a1173443802c0a3}
+      \field{sortinit}{8}
+      \field{sortinithash}{a231b008ebf0ecbe0b4d96dcc159445f}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{edition}{7}
@@ -323,120 +359,6 @@
       \field{title}{Principles of optics: electromagnetic theory of propagation, interference and diffraction of light}
       \field{year}{1999}
       \true{nocite}
-    \endentry
-    \entry{Ivanova}{book}{}{}
-      \name{author}{1}{}{%
-        {{hash=992c6508d71bb55a32ae4e07617e3d85}{%
-           family={Іванова},
-           familyi={І\bibinitperiod},
-           given={В.\bibnamedelimi В.},
-           giveni={В\bibinitperiod\bibinitdelim В\bibinitperiod}}}%
-      }
-      \list{language}{1}{%
-        {ukrainian}%
-      }
-      \list{publisher}{1}{%
-        {НТУУ <<КПІ>>}%
-      }
-      \strng{namehash}{992c6508d71bb55a32ae4e07617e3d85}
-      \strng{fullhash}{992c6508d71bb55a32ae4e07617e3d85}
-      \strng{fullhashraw}{992c6508d71bb55a32ae4e07617e3d85}
-      \strng{bibnamehash}{992c6508d71bb55a32ae4e07617e3d85}
-      \strng{authorbibnamehash}{992c6508d71bb55a32ae4e07617e3d85}
-      \strng{authornamehash}{992c6508d71bb55a32ae4e07617e3d85}
-      \strng{authorfullhash}{992c6508d71bb55a32ae4e07617e3d85}
-      \strng{authorfullhashraw}{992c6508d71bb55a32ae4e07617e3d85}
-      \field{sortinit}{8}
-      \field{sortinithash}{a231b008ebf0ecbe0b4d96dcc159445f}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{langid}{ukrainian}
-      \field{pagetotal}{142}
-      \field{title}{Задачі з загальної фізики. Оптика. Навчальний посібник}
-      \field{year}{2012}
-      \verb{urlraw}
-      \verb https://ela.kpi.ua/handle/123456789/1840
-      \endverb
-      \verb{url}
-      \verb https://ela.kpi.ua/handle/123456789/1840
-      \endverb
-    \endentry
-    \entry{FTILabPractOptics}{book}{}{}
-      \name{author}{3}{}{%
-        {{hash=a04c10a7ede55a8ce0dbef1de9731318}{%
-           family={Монастирський},
-           familyi={М\bibinitperiod},
-           given={Г.\bibnamedelimi Є.},
-           giveni={Г\bibinitperiod\bibinitdelim Є\bibinitperiod}}}%
-        {{hash=bbd17460616459dab8cb1a644d07e952}{%
-           family={Гомонай},
-           familyi={Г\bibinitperiod},
-           given={О.\bibnamedelimi В.},
-           giveni={О\bibinitperiod\bibinitdelim В\bibinitperiod}}}%
-        {{hash=14b6f63a22e5118bfd3cc0802c48e55b}{%
-           family={Грайворонський},
-           familyi={Г\bibinitperiod},
-           given={М.\bibnamedelimi В.},
-           giveni={М\bibinitperiod\bibinitdelim В\bibinitperiod}}}%
-      }
-      \list{language}{1}{%
-        {ukrainian}%
-      }
-      \list{publisher}{1}{%
-        {ФТФ, НТУУ <<КПІ>>}%
-      }
-      \strng{namehash}{886659b5e563d97888db2adabf9b9a4e}
-      \strng{fullhash}{a0cb1f3a9f3821065f0508966d7753ea}
-      \strng{fullhashraw}{a0cb1f3a9f3821065f0508966d7753ea}
-      \strng{bibnamehash}{a0cb1f3a9f3821065f0508966d7753ea}
-      \strng{authorbibnamehash}{a0cb1f3a9f3821065f0508966d7753ea}
-      \strng{authornamehash}{886659b5e563d97888db2adabf9b9a4e}
-      \strng{authorfullhash}{a0cb1f3a9f3821065f0508966d7753ea}
-      \strng{authorfullhashraw}{a0cb1f3a9f3821065f0508966d7753ea}
-      \field{sortinit}{9}
-      \field{sortinithash}{0a5ebc79d83c96b6579069544c73c7d4}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{pagetotal}{60}
-      \field{title}{Лабораторний практикум з загальної фізики: Оптика}
-      \field{year}{1999}
-      \keyw{LabWork}
-    \endentry
-    \entry{FTILabPractOpticsNew}{book}{}{}
-      \name{author}{2}{}{%
-        {{hash=a009f0ee4c288baaf50c53f37d29d94a}{%
-           family={Пономаренко},
-           familyi={П\bibinitperiod},
-           given={С.\bibnamedelimi М.},
-           giveni={С\bibinitperiod\bibinitdelim М\bibinitperiod}}}%
-        {{hash=8d360fe781239c25a24c7fb5c82adbd6}{%
-           family={Івнова},
-           familyi={І\bibinitperiod},
-           given={В.\bibnamedelimi В.},
-           giveni={В\bibinitperiod\bibinitdelim В\bibinitperiod}}}%
-      }
-      \list{language}{1}{%
-        {ukrainian}%
-      }
-      \list{publisher}{1}{%
-        {КПІ ім. Ігоря Сікорського}%
-      }
-      \strng{namehash}{61ccd40fe37b0961674cb73a4a7fb3dd}
-      \strng{fullhash}{61ccd40fe37b0961674cb73a4a7fb3dd}
-      \strng{fullhashraw}{61ccd40fe37b0961674cb73a4a7fb3dd}
-      \strng{bibnamehash}{61ccd40fe37b0961674cb73a4a7fb3dd}
-      \strng{authorbibnamehash}{61ccd40fe37b0961674cb73a4a7fb3dd}
-      \strng{authornamehash}{61ccd40fe37b0961674cb73a4a7fb3dd}
-      \strng{authorfullhash}{61ccd40fe37b0961674cb73a4a7fb3dd}
-      \strng{authorfullhashraw}{61ccd40fe37b0961674cb73a4a7fb3dd}
-      \field{sortinit}{1}
-      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{pagetotal}{38}
-      \field{title}{Оптика. Лабораторний практикум}
-      \field{year}{2021}
-      \keyw{LabWork}
     \endentry
   \enddatalist
 \endrefsection

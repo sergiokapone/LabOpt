@@ -1,0 +1,14 @@
+[0] Config.pm:328> INFO - This is Biber 2.21
+[0] Config.pm:331> INFO - Logfile is 'Syllabus_Optics_2024.blg'
+[100] biber-MSWIN64:342> INFO - === 
+[136] Biber.pm:421> INFO - Reading 'Syllabus_Optics_2024.bcf'
+[277] Biber.pm:1002> INFO - Found 8 citekeys in bib section 0
+[292] Biber.pm:4487> INFO - Processing section 0
+[302] Biber.pm:4678> INFO - Looking for bibtex file 'Optics.bib' for section 0
+[346] bibtex.pm:1713> INFO - LaTeX decoding ...
+[365] bibtex.pm:1519> INFO - Found BibTeX data source 'Optics.bib'
+[435] UCollate.pm:68> INFO - Overriding locale 'uk-UA' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[435] UCollate.pm:68> INFO - Overriding locale 'uk-UA' defaults 'variable = shifted' with 'variable = non-ignorable'
+[435] Biber.pm:4307> INFO - Sorting list 'none/global//global/global/global' of type 'entry' with template 'none' and locale 'uk-UA'
+[444] bbl.pm:676> INFO - Writing 'Syllabus_Optics_2024.bbl' with encoding 'UTF-8'
+[449] bbl.pm:779> INFO - Output to Syllabus_Optics_2024.bbl
