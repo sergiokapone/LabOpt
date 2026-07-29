@@ -1,0 +1,366 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.3 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{none/global//global/global/global}
+    \entry{ivanova2022optics}{book}{}{}
+      \name{author}{2}{}{%
+        {{hash=992c6508d71bb55a32ae4e07617e3d85}{%
+           family={Іванова},
+           familyi={І\bibinitperiod},
+           given={В.\bibnamedelimi В.},
+           giveni={В\bibinitperiod\bibinitdelim В\bibinitperiod}}}%
+        {{hash=a009f0ee4c288baaf50c53f37d29d94a}{%
+           family={Пономаренко},
+           familyi={П\bibinitperiod},
+           given={С.\bibnamedelimi М.},
+           giveni={С\bibinitperiod\bibinitdelim М\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Київ}%
+      }
+      \list{publisher}{1}{%
+        {КПІ ім. Ігоря Сікорського}%
+      }
+      \strng{namehash}{16970798a5f4c8677f5278182ad95807}
+      \strng{fullhash}{16970798a5f4c8677f5278182ad95807}
+      \strng{fullhashraw}{16970798a5f4c8677f5278182ad95807}
+      \strng{bibnamehash}{16970798a5f4c8677f5278182ad95807}
+      \strng{authorbibnamehash}{16970798a5f4c8677f5278182ad95807}
+      \strng{authornamehash}{16970798a5f4c8677f5278182ad95807}
+      \strng{authorfullhash}{16970798a5f4c8677f5278182ad95807}
+      \strng{authorfullhashraw}{16970798a5f4c8677f5278182ad95807}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{pagetotal}{176}
+      \field{title}{Оптика: Практичний курс}
+      \field{year}{2022}
+      \verb{urlraw}
+      \verb https://sergiokapone.github.io/opticsbook/
+      \endverb
+      \verb{url}
+      \verb https://sergiokapone.github.io/opticsbook/
+      \endverb
+    \endentry
+    \entry{Smytyna}{book}{}{}
+      \name{author}{1}{}{%
+        {{hash=08d795995ecf7fa5346574e06352d34a}{%
+           family={Сминтина},
+           familyi={С\bibinitperiod},
+           given={В.\bibnamedelimi А.},
+           giveni={В\bibinitperiod\bibinitdelim А\bibinitperiod}}}%
+      }
+      \list{language}{1}{%
+        {ukrainian}%
+      }
+      \list{location}{1}{%
+        {О.}%
+      }
+      \list{publisher}{1}{%
+        {Астропринт}%
+      }
+      \strng{namehash}{08d795995ecf7fa5346574e06352d34a}
+      \strng{fullhash}{08d795995ecf7fa5346574e06352d34a}
+      \strng{fullhashraw}{08d795995ecf7fa5346574e06352d34a}
+      \strng{bibnamehash}{08d795995ecf7fa5346574e06352d34a}
+      \strng{authorbibnamehash}{08d795995ecf7fa5346574e06352d34a}
+      \strng{authornamehash}{08d795995ecf7fa5346574e06352d34a}
+      \strng{authorfullhash}{08d795995ecf7fa5346574e06352d34a}
+      \strng{authorfullhashraw}{08d795995ecf7fa5346574e06352d34a}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{edition}{2}
+      \field{isbn}{978-966-318-957-4}
+      \field{pagetotal}{312}
+      \field{title}{Оптика : підручник}
+      \field{year}{2008}
+      \true{nocite}
+      \keyw{Optics}
+    \endentry
+    \entry{Romaniuk}{book}{}{}
+      \name{author}{3}{}{%
+        {{hash=0a515fae6ed9acafb6702060a3a40eff}{%
+           family={Романюк},
+           familyi={Р\bibinitperiod},
+           given={М.\bibnamedelimi О.},
+           giveni={М\bibinitperiod\bibinitdelim О\bibinitperiod}}}%
+        {{hash=74790ef093b9daa2fe73b1e7dbd94ecc}{%
+           family={Крочук},
+           familyi={К\bibinitperiod},
+           given={А.\bibnamedelimi С.},
+           giveni={А\bibinitperiod\bibinitdelim С\bibinitperiod}}}%
+        {{hash=0729a9dd2ae4f11c2443be8f5ebf934b}{%
+           family={Пашук},
+           familyi={П\bibinitperiod},
+           given={І.\bibnamedelimi П.},
+           giveni={І\bibinitperiod\bibinitdelim П\bibinitperiod}}}%
+      }
+      \name{editor}{1}{}{%
+        {{hash=443f1e985a1e125bd164a7443c8426e1}{%
+           family={Романюка},
+           familyi={Р\bibinitperiod},
+           given={М.\bibnamedelimi О.},
+           giveni={М\bibinitperiod\bibinitdelim О\bibinitperiod},
+           prefix={проф.},
+           prefixi={п\bibinitperiod}}}%
+      }
+      \list{language}{1}{%
+        {ukrainian}%
+      }
+      \list{location}{1}{%
+        {Л.}%
+      }
+      \list{publisher}{1}{%
+        {ЛНУ ім. І. Франка}%
+      }
+      \strng{namehash}{7e05863d9632f021b5d237519d48daa3}
+      \strng{fullhash}{28d40e2752074211d509eac18cb61077}
+      \strng{fullhashraw}{28d40e2752074211d509eac18cb61077}
+      \strng{bibnamehash}{28d40e2752074211d509eac18cb61077}
+      \strng{authorbibnamehash}{28d40e2752074211d509eac18cb61077}
+      \strng{authornamehash}{7e05863d9632f021b5d237519d48daa3}
+      \strng{authorfullhash}{28d40e2752074211d509eac18cb61077}
+      \strng{authorfullhashraw}{28d40e2752074211d509eac18cb61077}
+      \strng{editorbibnamehash}{443f1e985a1e125bd164a7443c8426e1}
+      \strng{editornamehash}{443f1e985a1e125bd164a7443c8426e1}
+      \strng{editorfullhash}{443f1e985a1e125bd164a7443c8426e1}
+      \strng{editorfullhashraw}{443f1e985a1e125bd164a7443c8426e1}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{isbn}{978-966-613-948-4}
+      \field{pagetotal}{562}
+      \field{title}{Оптика : підручник}
+      \field{year}{2012}
+      \true{nocite}
+      \keyw{Optics}
+    \endentry
+    \entry{kolobrodov2017optics}{book}{}{}
+      \name{author}{1}{}{%
+        {{hash=18e4b2bcca66535f27099865f71a2860}{%
+           family={Колобродов},
+           familyi={К\bibinitperiod},
+           given={В.\bibnamedelimi Г.},
+           giveni={В\bibinitperiod\bibinitdelim Г\bibinitperiod}}}%
+      }
+      \list{language}{1}{%
+        {ukrainian}%
+      }
+      \list{location}{1}{%
+        {К.}%
+      }
+      \list{publisher}{1}{%
+        {КПІ ім. Ігоря Сікорського}%
+      }
+      \strng{namehash}{18e4b2bcca66535f27099865f71a2860}
+      \strng{fullhash}{18e4b2bcca66535f27099865f71a2860}
+      \strng{fullhashraw}{18e4b2bcca66535f27099865f71a2860}
+      \strng{bibnamehash}{18e4b2bcca66535f27099865f71a2860}
+      \strng{authorbibnamehash}{18e4b2bcca66535f27099865f71a2860}
+      \strng{authornamehash}{18e4b2bcca66535f27099865f71a2860}
+      \strng{authorfullhash}{18e4b2bcca66535f27099865f71a2860}
+      \strng{authorfullhashraw}{18e4b2bcca66535f27099865f71a2860}
+      \field{extraname}{1}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{langid}{ukrainian}
+      \field{pagetotal}{208}
+      \field{title}{Хвильова оптика. Частина 1. Електромагнітна теорія світла та інтерференція. Підручник}
+      \field{year}{2017}
+      \true{nocite}
+      \verb{urlraw}
+      \verb https://ela.kpi.ua/handle/123456789/20753
+      \endverb
+      \verb{url}
+      \verb https://ela.kpi.ua/handle/123456789/20753
+      \endverb
+    \endentry
+    \entry{kolobrodov2018optics}{book}{}{}
+      \name{author}{1}{}{%
+        {{hash=18e4b2bcca66535f27099865f71a2860}{%
+           family={Колобродов},
+           familyi={К\bibinitperiod},
+           given={В.\bibnamedelimi Г.},
+           giveni={В\bibinitperiod\bibinitdelim Г\bibinitperiod}}}%
+      }
+      \list{language}{1}{%
+        {ukrainian}%
+      }
+      \list{location}{1}{%
+        {К.}%
+      }
+      \list{publisher}{1}{%
+        {КПІ ім. Ігоря Сікорського}%
+      }
+      \strng{namehash}{18e4b2bcca66535f27099865f71a2860}
+      \strng{fullhash}{18e4b2bcca66535f27099865f71a2860}
+      \strng{fullhashraw}{18e4b2bcca66535f27099865f71a2860}
+      \strng{bibnamehash}{18e4b2bcca66535f27099865f71a2860}
+      \strng{authorbibnamehash}{18e4b2bcca66535f27099865f71a2860}
+      \strng{authornamehash}{18e4b2bcca66535f27099865f71a2860}
+      \strng{authorfullhash}{18e4b2bcca66535f27099865f71a2860}
+      \strng{authorfullhashraw}{18e4b2bcca66535f27099865f71a2860}
+      \field{extraname}{2}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{langid}{ukrainian}
+      \field{pagetotal}{230}
+      \field{title}{Хвильова оптика. Частина 2. Дифракція і поляризація світла. Підручник}
+      \field{year}{2018}
+      \true{nocite}
+      \verb{urlraw}
+      \verb https://ela.kpi.ua/handle/123456789/23244?mode=full
+      \endverb
+      \verb{url}
+      \verb https://ela.kpi.ua/handle/123456789/23244?mode=full
+      \endverb
+    \endentry
+    \entry{FTILabPractOpticsNew}{book}{}{}
+      \name{author}{2}{}{%
+        {{hash=a009f0ee4c288baaf50c53f37d29d94a}{%
+           family={Пономаренко},
+           familyi={П\bibinitperiod},
+           given={С.\bibnamedelimi М.},
+           giveni={С\bibinitperiod\bibinitdelim М\bibinitperiod}}}%
+        {{hash=8d360fe781239c25a24c7fb5c82adbd6}{%
+           family={Івнова},
+           familyi={І\bibinitperiod},
+           given={В.\bibnamedelimi В.},
+           giveni={В\bibinitperiod\bibinitdelim В\bibinitperiod}}}%
+      }
+      \list{language}{1}{%
+        {ukrainian}%
+      }
+      \list{publisher}{1}{%
+        {КПІ ім. Ігоря Сікорського}%
+      }
+      \strng{namehash}{61ccd40fe37b0961674cb73a4a7fb3dd}
+      \strng{fullhash}{61ccd40fe37b0961674cb73a4a7fb3dd}
+      \strng{fullhashraw}{61ccd40fe37b0961674cb73a4a7fb3dd}
+      \strng{bibnamehash}{61ccd40fe37b0961674cb73a4a7fb3dd}
+      \strng{authorbibnamehash}{61ccd40fe37b0961674cb73a4a7fb3dd}
+      \strng{authornamehash}{61ccd40fe37b0961674cb73a4a7fb3dd}
+      \strng{authorfullhash}{61ccd40fe37b0961674cb73a4a7fb3dd}
+      \strng{authorfullhashraw}{61ccd40fe37b0961674cb73a4a7fb3dd}
+      \field{sortinit}{6}
+      \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{pagetotal}{38}
+      \field{title}{Оптика. Лабораторний практикум}
+      \field{year}{2021}
+      \keyw{LabWork}
+    \endentry
+    \entry{Ling}{book}{}{}
+      \name{author}{3}{}{%
+        {{hash=c72cfb5e68ef597719e0bfc9d549c36f}{%
+           family={Ling},
+           familyi={L\bibinitperiod},
+           given={S.\bibnamedelimi J.},
+           giveni={S\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+        {{hash=ad9dde6fa478188f8de28027532aac81}{%
+           family={Sanny},
+           familyi={S\bibinitperiod},
+           given={J.},
+           giveni={J\bibinitperiod}}}%
+        {{hash=ee0491cfaae7dc7c8f7017c28cfc8175}{%
+           family={Moebs},
+           familyi={M\bibinitperiod},
+           given={W.},
+           giveni={W\bibinitperiod}}}%
+      }
+      \list{language}{1}{%
+        {english}%
+      }
+      \list{publisher}{1}{%
+        {OpenStax College, Rice University, Minneapolis}%
+      }
+      \strng{namehash}{a0f9227b753b266a04537eaca550ce83}
+      \strng{fullhash}{1af1ea6c17acb8f41803ef7b2353d3f0}
+      \strng{fullhashraw}{1af1ea6c17acb8f41803ef7b2353d3f0}
+      \strng{bibnamehash}{1af1ea6c17acb8f41803ef7b2353d3f0}
+      \strng{authorbibnamehash}{1af1ea6c17acb8f41803ef7b2353d3f0}
+      \strng{authornamehash}{a0f9227b753b266a04537eaca550ce83}
+      \strng{authorfullhash}{1af1ea6c17acb8f41803ef7b2353d3f0}
+      \strng{authorfullhashraw}{1af1ea6c17acb8f41803ef7b2353d3f0}
+      \field{sortinit}{7}
+      \field{sortinithash}{108d0be1b1bee9773a1173443802c0a3}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{internalsortvolume}{3}
+      \field{isbn}{1680920456}
+      \field{pagetotal}{618}
+      \field{title}{Univercity Physics}
+      \field{year}{2018}
+      \true{nocite}
+      \field{volume}{3}
+      \range{volume}{1}
+    \endentry
+    \entry{BornWolfEng}{book}{}{}
+      \name{author}{2}{}{%
+        {{hash=f3c12b2ab192a232977c790c202ae18a}{%
+           family={Born},
+           familyi={B\bibinitperiod},
+           given={Max},
+           giveni={M\bibinitperiod}}}%
+        {{hash=4f3da79454ab0edb86f37a6038d1998f}{%
+           family={Wolf},
+           familyi={W\bibinitperiod},
+           given={Emil},
+           giveni={E\bibinitperiod}}}%
+      }
+      \list{language}{1}{%
+        {english}%
+      }
+      \list{publisher}{1}{%
+        {CUP}%
+      }
+      \strng{namehash}{b14dea9f75ec6824071689113c5b3d02}
+      \strng{fullhash}{b14dea9f75ec6824071689113c5b3d02}
+      \strng{fullhashraw}{b14dea9f75ec6824071689113c5b3d02}
+      \strng{bibnamehash}{b14dea9f75ec6824071689113c5b3d02}
+      \strng{authorbibnamehash}{b14dea9f75ec6824071689113c5b3d02}
+      \strng{authornamehash}{b14dea9f75ec6824071689113c5b3d02}
+      \strng{authorfullhash}{b14dea9f75ec6824071689113c5b3d02}
+      \strng{authorfullhashraw}{b14dea9f75ec6824071689113c5b3d02}
+      \field{sortinit}{8}
+      \field{sortinithash}{a231b008ebf0ecbe0b4d96dcc159445f}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{edition}{7}
+      \field{isbn}{0-521-64222-1}
+      \field{langid}{english}
+      \field{pagetotal}{952}
+      \field{title}{Principles of optics: electromagnetic theory of propagation, interference and diffraction of light}
+      \field{year}{1999}
+      \true{nocite}
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+
