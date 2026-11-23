@@ -138,16 +138,19 @@ TEMPLATE = """<!DOCTYPE html>
             <h2 class="section-heading">Автори</h2>
             <div class="authors">
                 <div class="author-card">
+                    <img class="author-photo" src="https://apd.ipt.kpi.ua/wp-content/uploads/2026/03/Ivanova_VV.jpg"
+                         alt="Віта Іванова" loading="lazy">
+                    <strong><a href="https://apd.ipt.kpi.ua/kafedra/stuff/ivanova/" target="_blank">Іванова Віта Вікторівна</a></strong>
+                    <p>Кандидат технічних наук, доцент кафедри прикладної фізики КПІ ім. Ігоря Сікорського.</p>
+                </div>
+                <div class="author-card">
+                    <img class="author-photo" src="https://apd.ipt.kpi.ua/wp-content/uploads/2025/01/MyPhoto2.jpg"
+                         alt="Сергій Пономаренко" loading="lazy">
                     <strong><a href="https://apd.ipt.kpi.ua/kafedra/stuff/ponomarenko/" target="_blank">Пономаренко Сергій Миколайович</a></strong>
                     <p>Кандидат фізико-математичних наук, доцент кафедри прикладної фізики КПІ ім. Ігоря Сікорського.</p>
                 </div>
-                <div class="author-card">
-                    <strong><a href="http://apd.ipt.kpi.ua/kafedra/perspages/IvanovaVV.html" target="_blank">Іванова Віта Вікторівна</a></strong>
-                    <p>Кандидат технічних наук, доцент кафедри прикладної фізики КПІ ім. Ігоря Сікорського.</p>
-                </div>
             </div>
         </div>
-
         <div class="preface">
             <h2>Про посібник</h2>
             <p>Навчальний посібник містить зміст, основні складові та порядок виконання лабораторних робіт з дисципліни <strong>«Оптика»</strong> для студентів Фізико-технічного інституту КПІ ім. Ігоря Сікорського, які навчаються за спеціальністю 105 «Прикладна фізика та наноматеріали».</p>

@@ -183,14 +183,12 @@
     });
 
     /* ═══════════════════════════════════════════════════════════
-       Магнітне дзеркало в шапці. Іони й електрони дрейфують уздовж
-       силових ліній, гвинтом обертаючись у протилежні боки; в зоні
-       сильного поля вони відбиваються (збереження магнітного моменту).
-       Частинки з малим питч-кутом (конус втрат) вилітають із пастки.
-       Курсор по вертикалі змінює пробкове відношення R = B_max/B_min:
-       що більше R, то вужчий конус втрат.
+       Інтерференція від двох щілин у шапці: кругові хвилі від двох
+       когерентних джерел, що розходяться, і розподіл інтенсивності
+       I ∝ cos²(π d y / λL) на екрані справа. Курсор по вертикалі
+       змінює відстань між щілинами d: що більше d, то дрібніші смуги.
        ═══════════════════════════════════════════════════════════ */
-    (function initMirror() {
+    (function initOptics() {
         var hero = document.querySelector('.pdf-hero');
         if (!hero) { return; }
 
@@ -202,118 +200,60 @@
         var ctx = cv.getContext('2d');
         var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         var w = 0, h = 0, dpr = 1, raf = 0, visible = true;
-        var R = 3.2, Rtarget = 3.2;               // пробкове відношення (поточне й цільове)
-        var NP = 56, TRAIL = 26;
-        var parts = [];
-
-        // Геометрія: вісь пастки горизонтальна, центр — у правій частині шапки
-        var cx, cy, L, rho;
-        function B(z) { var u = z / L; return 1 + (R - 1) * u * u; }
-        function dBdz(z) { return 2 * (R - 1) * z / (L * L); }
-
-        function inject(p, fresh) {
-            var ion = p.ion;
-            p.z = fresh ? (Math.random() * 2 - 1) * L * 0.9 : (Math.random() * 2 - 1) * L * 0.15;
-            // ізотропний розподіл за питч-кутом у центрі пастки
-            var c = Math.random() * 2 - 1, s = Math.sqrt(1 - c * c);
-            var v0 = ion ? 180 : 420;            // швидкість, px/с (іони повільніші)
-            // у точці z початкові компоненти задаємо так, ніби питч-кут заданий при B(z)
-            var Bz = B(p.z);
-            p.vpar = v0 * c;
-            p.mu2 = v0 * v0 * s * s / Bz;          // v_perp0^2 = v_perp^2 / B (стала руху)
-            p.y0 = (Math.random() * 2 - 1) * rho * 0.85;   // положення силової лінії при B = 1
-            p.phi = Math.random() * 2 * Math.PI;
-            p.trail = [];
-        }
-
-        function init() {
-            parts = [];
-            for (var i = 0; i < NP; i++) {
-                var p = { ion: i % 3 === 0 };       // 1/3 іони, 2/3 електрони (для наочності)
-                inject(p, true);
-                parts.push(p);
-            }
-        }
+        var d = 26, dTarget = 26;                  // піввідстань між щілинами, px
+        var lam = 22, phase = 0;                   // довжина хвилі, px; фаза бігу хвиль
+        var sx, cy, ex, span;                      // щілини, вісь, екран, піввисота екрана
 
         function layout() {
-            cx = 0.64 * w; cy = 0.34 * h;
-            L = Math.min(0.3 * w, 360);
-            rho = Math.min(0.2 * h, 120);
-        }
-
-        function step(dt) {
-            for (var i = 0; i < parts.length; i++) {
-                var p = parts[i];
-                var n = 4, d = dt / n;
-                for (var k = 0; k < n; k++) {
-                    // магнітний момент зберігається: v_par' = -(v_perp0^2 / 2) dB/dz
-                    p.vpar += -0.5 * p.mu2 * dBdz(p.z) * d;
-                    p.z += p.vpar * d;
-                }
-                var Bz = B(p.z);
-                var om = (p.ion ? 6.5 : 22) * Bz * (p.ion ? 1 : -1);   // ларморівська частота ∝ B, знак за зарядом
-                p.phi += om * dt;
-                if (Math.abs(p.z) > L) { inject(p, false); continue; }
-                var vperp = Math.sqrt(p.mu2 * Bz);
-                var rl = vperp / Math.abs(om);                          // r_L = v_perp / omega ∝ 1/sqrt(B)
-                var y = p.y0 / Math.sqrt(Bz) + rl * Math.cos(p.phi);
-                p.trail.push(cx + p.z, cy + y);
-                if (p.trail.length > TRAIL * 2) { p.trail.splice(0, 2); }
-            }
+            sx = 0.50 * w; ex = 0.96 * w; cy = 0.34 * h;
+            span = Math.min(0.30 * h, 130);
         }
 
         function draw() {
             if (!w || !cv.offsetParent) { return; }
             var cs = getComputedStyle(root);
             var line = cs.getPropertyValue('--fl-line');
-            var cIon = cs.getPropertyValue('--fl-pos');
-            var cEl = cs.getPropertyValue('--fl-neg');
-
+            var c1 = cs.getPropertyValue('--fl-pos');
+            var c2 = cs.getPropertyValue('--fl-neg');
             ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
             ctx.clearRect(0, 0, w, h);
 
-            // силові лінії поля: радіус труби ∝ 1/sqrt(B)
+            // падаючий пучок (плоскі фронти) і діафрагма з двома щілинами
             ctx.strokeStyle = line; ctx.lineWidth = 1.1;
-            var nl = 9;
-            for (var i = -nl; i <= nl; i++) {
-                var r0 = i / nl * rho * 1.25;
-                ctx.beginPath();
-                for (var s = -1; s <= 1.0001; s += 0.04) {
-                    var z = s * L * 1.12;
-                    var u = z / L;
-                    var y = r0 / Math.sqrt(1 + (R - 1) * u * u);
-                    if (s === -1) { ctx.moveTo(cx + z, cy + y); } else { ctx.lineTo(cx + z, cy + y); }
-                }
-                ctx.stroke();
+            for (var x = sx - 20 - ((phase % lam)); x > sx - 0.3 * w; x -= lam) {
+                ctx.globalAlpha = Math.max(0, 1 - (sx - x) / (0.3 * w));
+                ctx.beginPath(); ctx.moveTo(x, cy - span * 0.8); ctx.lineTo(x, cy + span * 0.8); ctx.stroke();
             }
-            // котушки (де поле сильніше)
-            ctx.lineWidth = 2.2; ctx.globalAlpha = 0.7;
-            [-1, 1].forEach(function (sg) {
-                ctx.beginPath();
-                ctx.ellipse(cx + sg * L * 1.05, cy, 6, rho * 1.55 / Math.sqrt(R), 0, 0, 2 * Math.PI);
-                ctx.stroke();
+            ctx.globalAlpha = 0.9; ctx.lineWidth = 3; ctx.strokeStyle = c1;
+            var gap = 3;
+            [[cy - span * 1.15, cy - d - gap], [cy - d + gap, cy + d - gap], [cy + d + gap, cy + span * 1.15]].forEach(function (s) {
+                ctx.beginPath(); ctx.moveTo(sx, s[0]); ctx.lineTo(sx, s[1]); ctx.stroke();
             });
-            ctx.globalAlpha = 1;
 
-            // сліди й частинки
-            ctx.lineWidth = 1.4; ctx.lineCap = 'round';
-            parts.forEach(function (p) {
-                var t = p.trail, m = t.length / 2;
-                if (m < 2) { return; }
-                ctx.strokeStyle = p.ion ? cIon : cEl;
-                for (var j = 1; j < m; j++) {
-                    ctx.globalAlpha = 0.55 * j / m;
-                    ctx.beginPath();
-                    ctx.moveTo(t[2 * j - 2], t[2 * j - 1]);
-                    ctx.lineTo(t[2 * j], t[2 * j + 1]);
-                    ctx.stroke();
+            // кругові хвилі від двох щілин, обрізані правою півплощиною
+            ctx.save();
+            ctx.beginPath(); ctx.rect(sx, cy - span * 1.15, ex - sx, span * 2.3); ctx.clip();
+            ctx.lineWidth = 1;
+            [-d, d].forEach(function (sy, i) {
+                ctx.strokeStyle = i ? c2 : c1;
+                for (var r = (phase % lam); r < ex - sx + span; r += lam) {
+                    ctx.globalAlpha = 0.5 * Math.max(0, 1 - r / (ex - sx + span));
+                    ctx.beginPath(); ctx.arc(sx, cy + sy, r, -Math.PI / 2, Math.PI / 2); ctx.stroke();
                 }
-                ctx.globalAlpha = 0.95;
-                ctx.fillStyle = p.ion ? cIon : cEl;
-                ctx.beginPath();
-                ctx.arc(t[2 * m - 2], t[2 * m - 1], p.ion ? 3.2 : 2.2, 0, 2 * Math.PI);
-                ctx.fill();
             });
+            ctx.restore();
+
+            // екран і розподіл інтенсивності I(y) = cos²(π·2d·y / λL)
+            var L = ex - sx, k = Math.PI * 2 * d / (lam * L) * 22;
+            ctx.globalAlpha = 1; ctx.strokeStyle = line; ctx.lineWidth = 1.2;
+            ctx.beginPath(); ctx.moveTo(ex, cy - span * 1.15); ctx.lineTo(ex, cy + span * 1.15); ctx.stroke();
+            ctx.strokeStyle = c2; ctx.lineWidth = 1.8; ctx.beginPath();
+            for (var y = -span * 1.15; y <= span * 1.15; y += 2) {
+                var I = Math.pow(Math.cos(k * y), 2) * Math.exp(-Math.pow(y / (span * 1.1), 2));
+                var px = ex - I * 0.14 * w;
+                if (y === -span * 1.15) { ctx.moveTo(px, cy + y); } else { ctx.lineTo(px, cy + y); }
+            }
+            ctx.stroke();
             ctx.globalAlpha = 1;
         }
 
@@ -321,8 +261,8 @@
         function frame(ts) {
             raf = 0;
             var dt = Math.min(0.05, (ts - last) / 1000 || 0.016); last = ts;
-            R += (Rtarget - R) * 0.06;
-            step(dt);
+            d += (dTarget - d) * 0.06;
+            phase += 38 * dt;
             draw();
             if (visible && !document.hidden) { raf = requestAnimationFrame(frame); }
         }
@@ -335,15 +275,13 @@
             cv.width = Math.round(w * dpr);
             cv.height = Math.round(h * dpr);
             layout();
-            init();
-            if (reduce) { for (var k = 0; k < 60; k++) { step(0.03); } }
             draw();
         }
 
         hero.addEventListener('pointermove', function (e) {
             var r = hero.getBoundingClientRect();
             var f = Math.min(1, Math.max(0, (e.clientY - r.top) / r.height));
-            Rtarget = 1.5 + 6 * (1 - f);            // вгору — сильніше дзеркало
+            dTarget = 12 + 40 * (1 - f);            // вгору — щілини розсунуті
         });
 
         if ('IntersectionObserver' in window) {
