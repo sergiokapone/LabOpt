@@ -5,10 +5,10 @@ html/cache/
 html/node_modules/
 html/package-lock.json
 html/_test/
-main-html*
-_html/
-lwarp*
-lateximage*
-LabBookHTML.cls
-build-error.txt
+/main-html*
+/_html/
+/lwarp*
+/lateximage*
+/LabBookHTML.cls
+/build-error.txt
 __pycache__/
