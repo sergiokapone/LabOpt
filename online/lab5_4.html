@@ -1,0 +1,1573 @@
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8" />
+<meta name="generator" content="LaTeX Lwarp package" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Оптика — Кільця Ньютона</title>
+<link rel="stylesheet" type="text/css" href="assets/conspect.css" />
+
+<script>
+// Lwarp MathJax emulation code
+//
+// Based on code by Davide P. Cervone.
+// Equation numbering: https://github.com/mathjax/MathJax/issues/2427
+// Starred and ifnextchar macros: https://github.com/mathjax/MathJax/issues/2428
+// \left, \right delimiters: https://github.com/mathjax/MathJax/issues/2535
+//
+// Modified by Brian Dunn to adjust equation numbering and add subequations.
+//
+// LaTeX can use \seteqnumber{subequations?}{section}{number} before each equation.
+// subequations? is 0 usually, 1 if inside subequations.
+// section is a string printed as-is, or empty.
+// number is auto-incremented by MathJax between equations.
+//
+MathJax = {
+   subequations: "0",
+   section: "",
+   loader: {
+     load: ['[tex]/tagformat', '[tex]/textmacros'],
+   },
+   startup: {
+     ready() {
+       // These would be replaced by import commands if you wanted to make
+       // a proper extension.
+       const Configuration = MathJax._.input.tex.Configuration.Configuration;
+       const CommandMap = MathJax._.input.tex.SymbolMap.CommandMap;
+       const Macro = MathJax._.input.tex.Symbol.Macro;
+       const TexError = MathJax._.input.tex.TexError.default;
+       const ParseUtil = MathJax._.input.tex.ParseUtil.default;
+       const expandable = MathJax._.util.Options.expandable;
+
+        // Insert the replacement string into the TeX string, and check
+        // that there haven't been too many maxro substitutions (prevents
+        // infinite loops).
+        const useArgument = (parser, text) => {
+          parser.string = ParseUtil.addArgs(parser, text, parser.string.slice(parser.i));
+          parser.i = 0;
+          if (++parser.macroCount > parser.configuration.options.maxMacros) {
+            throw new TexError('MaxMacroSub1',
+            'MathJax maximum macro substitution count exceeded; ' +
+            'is there a recursive macro call?');
+          }
+        }
+
+        // Create the command map for:
+        //     \ifstar, \ifnextchar, \ifblank, \ifstrequal, \gsub, \seteqnumber
+        new CommandMap('Lwarp-macros', {
+          ifstar: 'IfstarFunction',
+          ifnextchar: 'IfnextcharFunction',
+          ifblank: 'IfblankFunction',
+          ifstrequal: 'IfstrequalFunction',
+          gsubstitute: 'GsubstituteFunction',
+          seteqnumber: 'SeteqnumberFunction'
+        }, {
+          // This function implements an ifstar macro.
+          IfstarFunction(parser, name) {
+             const resultstar = parser.GetArgument(name);
+             const resultnostar = parser.GetArgument(name);
+             const star = parser.GetStar();                 // true if there is a *
+             useArgument(parser, star ? resultstar : resultnostar);
+          },
+
+          // This function implements an ifnextchar macro.
+          IfnextcharFunction(parser, name) {
+             let whichchar = parser.GetArgument(name);
+             if (whichchar.match(/^(?:0x[0-9A-F]+|[0-9]+)$/i)) {
+               // $ syntax highlighting
+               whichchar = String.fromCodePoint(parseInt(whichchar));
+             }
+             const resultnextchar = parser.GetArgument(name);
+             const resultnotnextchar = parser.GetArgument(name);
+             const gotchar = (parser.GetNext() === whichchar);
+             useArgument(parser, gotchar ? resultnextchar : resultnotnextchar);
+          },
+
+          // This function implements an ifblank macro.
+          IfblankFunction(parser, name) {
+             const blankarg = parser.GetArgument(name);
+             const resultblank = parser.GetArgument(name);
+             const resultnotblank = parser.GetArgument(name);
+             const isblank = (blankarg.trim() == "");
+             useArgument(parser, isblank ? resultblank : resultnotblank);
+          },
+
+          // This function implements an ifstrequal macro.
+          IfstrequalFunction(parser, name) {
+             const strequalfirst = parser.GetArgument(name);
+             const strequalsecond = parser.GetArgument(name);
+             const resultequal = parser.GetArgument(name);
+             const resultnotequal = parser.GetArgument(name);
+             const isequal = (strequalfirst == strequalsecond);
+             useArgument(parser, isequal ? resultequal : resultnotequal);
+          },
+
+          // This function implements a gsub macro.
+          GsubstituteFunction(parser, name) {
+             const gsubfirst = parser.GetArgument(name);
+             const gsubsecond = parser.GetArgument(name);
+             const gsubthird = parser.GetArgument(name);
+             let gsubresult=gsubfirst.replace(gsubsecond, gsubthird);
+             useArgument(parser, gsubresult);
+          },
+
+          // This function modifies the equation numbers.
+          SeteqnumberFunction(parser, name) {
+              // Get the macro parameters
+              const star = parser.GetStar();                  // true if there is a *
+              const optBrackets = parser.GetBrackets(name);   // contents of optional brackets
+              const newsubequations = parser.GetArgument(name); // the subequations argument
+              const neweqsection = parser.GetArgument(name); // the eq section argument
+              const neweqnumber = parser.GetArgument(name);   // the eq number argument
+              MathJax.config.subequations=newsubequations ;   // a string with boolean meaning
+              MathJax.config.section=neweqsection ;           // a string with numeric meaning
+              parser.tags.counter = parser.tags.allCounter = neweqnumber ;
+          }
+
+        });
+
+        // Create the Lwarp-macros package
+        Configuration.create('Lwarp-macros', {
+          handler: {macro: ['Lwarp-macros']}
+        });
+
+        MathJax.startup.defaultReady();
+
+        // For forward references:
+        MathJax.startup.input[0].preFilters.add(({math}) => {
+          if (math.inputData.recompile){
+              MathJax.config.subequations = math.inputData.recompile.subequations;
+              MathJax.config.section = math.inputData.recompile.section;
+          }
+        });
+        MathJax.startup.input[0].postFilters.add(({math}) => {
+          if (math.inputData.recompile){
+              math.inputData.recompile.subequations = MathJax.config.subequations;
+              math.inputData.recompile.section = MathJax.config.section;
+          }
+        });
+
+          // For \left, \right with unicode-math:
+          const {DelimiterMap} = MathJax._.input.tex.SymbolMap;
+          const {Symbol} = MathJax._.input.tex.Symbol;
+          const {MapHandler} = MathJax._.input.tex.MapHandler;
+          const delimiter = MapHandler.getMap('delimiter');
+          delimiter.add('\\lBrack', new Symbol('\\lBrack', '\u27E6'));
+          delimiter.add('\\rBrack', new Symbol('\\rBrack', '\u27E7'));
+          delimiter.add('\\lAngle', new Symbol('\\lAngle', '\u27EA'));
+          delimiter.add('\\rAngle', new Symbol('\\rAngle', '\u27EB'));
+          delimiter.add('\\lbrbrak', new Symbol('\\lbrbrak', '\u2772'));
+          delimiter.add('\\rbrbrak', new Symbol('\\rbrbrak', '\u2773'));
+          delimiter.add('\\lbag', new Symbol('\\lbag', '\u27C5'));
+          delimiter.add('\\rbag', new Symbol('\\rbag', '\u27C6'));
+          delimiter.add('\\llparenthesis', new Symbol('\\llparenthesis', '\u2987'));
+          delimiter.add('\\rrparenthesis', new Symbol('\\rrparenthesis', '\u2988'));
+          delimiter.add('\\llangle', new Symbol('\\llangle', '\u2989'));
+          delimiter.add('\\rrangle', new Symbol('\\rrangle', '\u298A'));
+          delimiter.add('\\Lbrbrak', new Symbol('\\Lbrbrak', '\u27EC'));
+          delimiter.add('\\Rbrbrak', new Symbol('\\Rbrbrak', '\u27ED'));
+          delimiter.add('\\lBrace', new Symbol('\\lBrace', '\u2983'));
+          delimiter.add('\\rBrace', new Symbol('\\rBrace', '\u2984'));
+          delimiter.add('\\lParen', new Symbol('\\lParen', '\u2985'));
+          delimiter.add('\\rParen', new Symbol('\\rParen', '\u2986'));
+          delimiter.add('\\lbrackubar', new Symbol('\\lbrackubar', '\u298B'));
+          delimiter.add('\\rbrackubar', new Symbol('\\rbrackubar', '\u298C'));
+          delimiter.add('\\lbrackultick', new Symbol('\\lbrackultick', '\u298D'));
+          delimiter.add('\\rbracklrtick', new Symbol('\\rbracklrtick', '\u298E'));
+          delimiter.add('\\lbracklltick', new Symbol('\\lbracklltick', '\u298F'));
+          delimiter.add('\\rbrackurtick', new Symbol('\\rbrackurtick', '\u2990'));
+          delimiter.add('\\langledot', new Symbol('\\langledot', '\u2991'));
+          delimiter.add('\\rangledot', new Symbol('\\rangledot', '\u2992'));
+          delimiter.add('\\lparenless', new Symbol('\\lparenless', '\u2993'));
+          delimiter.add('\\rparengtr', new Symbol('\\rparengtr', '\u2994'));
+          delimiter.add('\\Lparengtr', new Symbol('\\Lparengtr', '\u2995'));
+          delimiter.add('\\Rparenless', new Symbol('\\Rparenless', '\u2996'));
+          delimiter.add('\\lblkbrbrak', new Symbol('\\lblkbrbrak', '\u2997'));
+          delimiter.add('\\rblkbrbrak', new Symbol('\\rblkbrbrak', '\u2998'));
+          delimiter.add('\\lvzigzag', new Symbol('\\lvzigzag', '\u29D8'));
+          delimiter.add('\\rvzigzag', new Symbol('\\rvzigzag', '\u29D9'));
+          delimiter.add('\\Lvzigzag', new Symbol('\\Lvzigzag', '\u29DA'));
+          delimiter.add('\\Rvzigzag', new Symbol('\\Rvzigzag', '\u29DB'));
+          delimiter.add('\\lcurvyangle', new Symbol('\\lcurvyangle', '\u29FC'));
+          delimiter.add('\\rcurvyangle', new Symbol('\\rcurvyangle', '\u29FD'));
+          delimiter.add('\\Vvert', new Symbol('\\Vvert', '\u2980'));
+    }     // ready
+  },      // startup
+
+  tex: {
+    packages: {'[+]': ['tagformat', 'Lwarp-macros', 'textmacros']},
+    tags: "ams",
+         tagformat: {
+             number: function (n) {
+                 if(MathJax.config.subequations==0)
+                     return(MathJax.config.section + n);
+                 else
+                     return(MathJax.config.section + String.fromCharCode(96+n));
+             },
+         },
+  }
+}
+</script>
+
+<script
+    id="MathJax-script"
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"
+></script>
+
+</head>
+<body>
+
+
+<a id="main-html-autopage-56"></a>
+<div class="pagegrid">
+
+
+<nav class="topnavigation"><a href="main-html.html" class="linkhome" >
+Головна</a></nav>
+<div class="sidetoccontainer">
+
+
+<nav class="sidetoc">
+
+
+<div class="sidetoctitle">
+
+<p>
+<span class="sidetocthetitle">Оптика</span>
+</p>
+
+<p class="sidetoc-meta"><a href="../index.html">Про посібник</a><span aria-hidden="true">·</span><a href="../LabWork.pdf">PDF</a></p>
+</div>
+
+
+<div class="sidetoccontents">
+
+<p>
+<a href="main-html.html" class="linkhome" >
+Головна</a>
+</p>
+
+<p>
+<a href="interferention.html#autosec-5" class="tocpart" >
+<span class="sectionnumber">I</span><span class="toctitle">&#x2003;Інтерференція світла</span></a>
+</p>
+
+
+<p>
+<a href="interferention.html#autosec-7" class="tocsection" >
+<span class="sectionnumber">1</span><span class="toctitle">&#x2003;Означення</span></a>
+</p>
+
+
+<p>
+<a href="interferention.html#autosec-8" class="tocsection" >
+<span class="sectionnumber">2</span><span class="toctitle">&#x2003;Різниця ходу хвиль</span></a>
+</p>
+
+
+<p>
+<a href="interferention.html#autosec-9" class="tocsection" >
+<span class="sectionnumber">3</span><span class="toctitle">&#x2003;Ітерференційні схеми</span></a>
+</p>
+
+
+<p>
+<a href="interferention.html#autosec-22" class="tocsection" >
+<span class="sectionnumber">4</span><span class="toctitle">&#x2003;Реальні схеми спостерження інтерференції</span></a>
+</p>
+
+
+<p>
+<a href="lab5_3p1.html#autosec-24" class="tocchapter" >
+<span class="sectionnumber">1</span><span class="toctitle">&#x2003;Вивчення інтерференції світла при відбиванні від товстої скляної пластини</span></a>
+</p>
+
+
+<p>
+<a href="lab5_3p1.html#autosec-25" class="tocsection" >
+<span class="sectionnumber">1</span><span class="toctitle">&#x2003;Теоретичне підґрунтя</span></a>
+</p>
+
+
+<p>
+<a href="lab5_3p1.html#autosec-35" class="tocsection" >
+<span class="sectionnumber">2</span><span class="toctitle">&#x2003;Опис робочої установки</span></a>
+</p>
+
+
+<p>
+<a href="lab5_3p1.html#autosec-39" class="tocsection" >
+<span class="sectionnumber">3</span><span class="toctitle">&#x2003;Експериментальні подробиці</span></a>
+</p>
+
+
+<p>
+<a href="lab5_3p1.html#autosec-40" class="tocsection" >
+<span class="sectionnumber">4</span><span class="toctitle">&#x2003;Хід роботи</span></a>
+</p>
+
+
+<p>
+<a href="lab5_3p2.html#autosec-43" class="tocchapter" >
+<span class="sectionnumber">2</span><span class="toctitle">&#x2003;Вивчення інтерференції світла за допомогою біпризми Френеля</span></a>
+</p>
+
+
+<p>
+<a href="lab5_3p2.html#autosec-44" class="tocsection" >
+<span class="sectionnumber">1</span><span class="toctitle">&#x2003;Теоретичне підґрунтя</span></a>
+</p>
+
+
+<p>
+<a href="lab5_3p2.html#autosec-50" class="tocsection" >
+<span class="sectionnumber">2</span><span class="toctitle">&#x2003;Опис робочої установки</span></a>
+</p>
+
+
+<p>
+<a href="lab5_3p2.html#autosec-54" class="tocsection" >
+<span class="sectionnumber">3</span><span class="toctitle">&#x2003;Хід роботи</span></a>
+</p>
+
+
+<p>
+<a href="lab5_3p2.html#autosec-55" class="tocsection" >
+Контрольні запитання</a>
+</p>
+
+
+<p>
+<a href="lab5_4.html#autosec-57" class="tocchapter" >
+<span class="sectionnumber">3</span><span class="toctitle">&#x2003;Кільця Ньютона</span></a>
+</p>
+
+
+<p>
+<a href="lab5_4.html#autosec-58" class="tocsection" >
+<span class="sectionnumber">1</span><span class="toctitle">&#x2003;Теоретичне підґрунтя</span></a>
+</p>
+
+
+<p>
+<a href="lab5_4.html#autosec-64" class="tocsection" >
+<span class="sectionnumber">2</span><span class="toctitle">&#x2003;Експерементальні подробиці</span></a>
+</p>
+
+
+<p>
+<a href="lab5_4.html#autosec-68" class="tocsection" >
+Контрольні запитання</a>
+</p>
+
+
+<p>
+<a href="difraction.html#autosec-70" class="tocpart" >
+<span class="sectionnumber">II</span><span class="toctitle">&#x2003;Дифракція світла</span></a>
+</p>
+
+
+<p>
+<a href="difraction.html#autosec-72" class="tocsection" >
+<span class="sectionnumber">1</span><span class="toctitle">&#x2003;Означення</span></a>
+</p>
+
+
+<p>
+<a href="lab5_5.html#autosec-80" class="tocchapter" >
+<span class="sectionnumber">4</span><span class="toctitle">&#x2003;Дифракція світла від точкового джерела</span></a>
+</p>
+
+
+<p>
+<a href="lab5_5.html#autosec-81" class="tocsection" >
+<span class="sectionnumber">1</span><span class="toctitle">&#x2003;Експерементальні подробиці</span></a>
+</p>
+
+
+<p>
+<a href="lab5_5.html#autosec-85" class="tocsection" >
+<span class="sectionnumber">2</span><span class="toctitle">&#x2003;Хід експерименту</span></a>
+</p>
+
+
+<p>
+<a href="lab5_5.html#autosec-89" class="tocsection" >
+Контрольні запитання</a>
+</p>
+
+
+<p>
+<a href="polarization.html#autosec-91" class="tocpart" >
+<span class="sectionnumber">III</span><span class="toctitle">&#x2003;Поляризація світла</span></a>
+</p>
+
+
+<p>
+<a href="polarization.html#autosec-93" class="tocsection" >
+<span class="sectionnumber">1</span><span class="toctitle">&#x2003;Означення</span></a>
+</p>
+
+
+<p>
+<a href="lab5_7.html#autosec-112" class="tocchapter" >
+<span class="sectionnumber">5</span><span class="toctitle">&#x2003;Поляризація світла</span></a>
+</p>
+
+
+<p>
+<a href="lab5_7.html#autosec-113" class="tocsection" >
+<span class="sectionnumber">1</span><span class="toctitle">&#x2003;Експериментальні подробиці</span></a>
+</p>
+
+
+<p>
+<a href="lab5_7.html#autosec-114" class="tocsection" >
+<span class="sectionnumber">2</span><span class="toctitle">&#x2003;Хід експерименту</span></a>
+</p>
+
+
+<p>
+<a href="lab5_7.html#autosec-118" class="tocsection" >
+<span class="sectionnumber">3</span><span class="toctitle">&#x2003;Обробка результатів експерименту</span></a>
+</p>
+
+
+<p>
+<a href="lab5_7.html#autosec-119" class="tocsection" >
+Контрольні запитання</a>
+</p>
+
+
+</div>
+
+</nav>
+
+</div>
+
+
+<main class="bodycontainer" data-pagefind-body data-pagefind-meta="title[data-title]" data-title="Кільця Ньютона">
+
+
+<section class="textbody">
+
+<h1 data-pagefind-ignore>Оптика</h1>
+
+<!--MathJax customizations:-->
+<div data-nosnippet
+    style="display:none"
+>
+
+\(\newcommand{\footnotename}{footnote}\)
+
+\(\def \LWRfootnote {1}\)
+
+\(\newcommand {\footnote }[2][\LWRfootnote ]{{}^{\mathrm {#1}}}\)
+
+\(\newcommand {\footnotemark }[1][\LWRfootnote ]{{}^{\mathrm {#1}}}\)
+
+\(\let \LWRorighspace \hspace \)
+
+\(\renewcommand {\hspace }{\ifstar \LWRorighspace \LWRorighspace }\)
+
+\(\newcommand {\TextOrMath }[2]{#2}\)
+
+\(\newcommand {\mathnormal }[1]{{#1}}\)
+
+\(\newcommand \ensuremath [1]{#1}\)
+
+\(\newcommand {\LWRframebox }[2][]{\fbox {#2}} \newcommand {\framebox }[1][]{\LWRframebox } \)
+
+\(\newcommand {\setlength }[2]{}\)
+
+\(\newcommand {\addtolength }[2]{}\)
+
+\(\newcommand {\setcounter }[2]{}\)
+
+\(\newcommand {\addtocounter }[2]{}\)
+
+\(\newcommand {\arabic }[1]{}\)
+
+\(\newcommand {\number }[1]{}\)
+
+\(\newcommand {\noalign }[1]{\text {#1}\notag \\}\)
+
+\(\newcommand {\cline }[1]{}\)
+
+\(\newcommand {\directlua }[1]{\text {(directlua)}}\)
+
+\(\newcommand {\luatexdirectlua }[1]{\text {(directlua)}}\)
+
+\(\newcommand {\protect }{}\)
+
+\(\def \LWRabsorbnumber #1 {}\)
+
+\(\def \LWRabsorbquotenumber &quot;#1 {}\)
+
+\(\newcommand {\LWRabsorboption }[1][]{}\)
+
+\(\newcommand {\LWRabsorbtwooptions }[1][]{\LWRabsorboption }\)
+
+\(\def \mathchar {\ifnextchar &quot;\LWRabsorbquotenumber \LWRabsorbnumber }\)
+
+\(\def \mathcode #1={\mathchar }\)
+
+\(\let \delcode \mathcode \)
+
+\(\let \delimiter \mathchar \)
+
+\(\def \oe {\unicode {x0153}}\)
+
+\(\def \OE {\unicode {x0152}}\)
+
+\(\def \ae {\unicode {x00E6}}\)
+
+\(\def \AE {\unicode {x00C6}}\)
+
+\(\def \aa {\unicode {x00E5}}\)
+
+\(\def \AA {\unicode {x00C5}}\)
+
+\(\def \o {\unicode {x00F8}}\)
+
+\(\def \O {\unicode {x00D8}}\)
+
+\(\def \l {\unicode {x0142}}\)
+
+\(\def \L {\unicode {x0141}}\)
+
+\(\def \ss {\unicode {x00DF}}\)
+
+\(\def \SS {\unicode {x1E9E}}\)
+
+\(\def \dag {\unicode {x2020}}\)
+
+\(\def \ddag {\unicode {x2021}}\)
+
+\(\def \P {\unicode {x00B6}}\)
+
+\(\def \copyright {\unicode {x00A9}}\)
+
+\(\def \pounds {\unicode {x00A3}}\)
+
+\(\let \LWRref \ref \)
+
+\(\renewcommand {\ref }{\ifstar \LWRref \LWRref }\)
+
+\( \newcommand {\multicolumn }[3]{#3}\)
+
+\(\require {textcomp}\)
+
+\(\require {colortbl}\)
+
+\(\let \LWRorigcolumncolor \columncolor \)
+
+\(\renewcommand {\columncolor }[2][named]{\LWRorigcolumncolor [#1]{#2}\LWRabsorbtwooptions }\)
+
+\(\let \LWRorigrowcolor \rowcolor \)
+
+\(\renewcommand {\rowcolor }[2][named]{\LWRorigrowcolor [#1]{#2}\LWRabsorbtwooptions }\)
+
+\(\let \LWRorigcellcolor \cellcolor \)
+
+\(\renewcommand {\cellcolor }[2][named]{\LWRorigcellcolor [#1]{#2}\LWRabsorbtwooptions }\)
+
+\(\newcommand {\intertext }[1]{\text {#1}\notag \\}\)
+
+\(\let \Hat \hat \)
+
+\(\let \Check \check \)
+
+\(\let \Tilde \tilde \)
+
+\(\let \Acute \acute \)
+
+\(\let \Grave \grave \)
+
+\(\let \Dot \dot \)
+
+\(\let \Ddot \ddot \)
+
+\(\let \Breve \breve \)
+
+\(\let \Bar \bar \)
+
+\(\let \Vec \vec \)
+
+\(\let \symnormal \mathit \)
+
+\(\let \symliteral \mathrm \)
+
+\(\let \symbb \mathbb \)
+
+\(\let \symbbit \mathbb \)
+
+\(\let \symcal \mathcal \)
+
+\(\let \symscr \mathscr \)
+
+\(\let \symfrak \mathfrak \)
+
+\(\let \symsfup \mathsf \)
+
+\(\let \symsfit \mathit \)
+
+\(\let \symbfsf \mathbf \)
+
+\(\let \symbfup \mathbf \)
+
+\(\newcommand {\symbfit }[1]{\boldsymbol {#1}}\)
+
+\(\let \symbfcal \mathcal \)
+
+\(\let \symbfscr \mathscr \)
+
+\(\let \symbffrak \mathfrak \)
+
+\(\let \symbfsfup \mathbf \)
+
+\(\newcommand {\symbfsfit }[1]{\boldsymbol {#1}}\)
+
+\(\let \symup \mathrm \)
+
+\(\let \symbf \mathbf \)
+
+\(\let \symit \mathit \)
+
+\(\let \symtt \mathtt \)
+
+\(\let \symbffrac \mathbffrac \)
+
+\(\newcommand {\mathfence }[1]{\mathord {#1}}\)
+
+\(\newcommand {\mathover }[1]{#1}\)
+
+\(\newcommand {\mathunder }[1]{#1}\)
+
+\(\newcommand {\mathaccent }[1]{#1}\)
+
+\(\newcommand {\mathbotaccent }[1]{#1}\)
+
+\(\newcommand {\mathalpha }[1]{\mathord {#1}}\)
+
+\(\def\upAlpha{\unicode{x0391}}\)
+
+\(\def\upBeta{\unicode{x0392}}\)
+
+\(\def\upGamma{\unicode{x0393}}\)
+
+\(\def\upDigamma{\unicode{x03DC}}\)
+
+\(\def\upDelta{\unicode{x0394}}\)
+
+\(\def\upEpsilon{\unicode{x0395}}\)
+
+\(\def\upZeta{\unicode{x0396}}\)
+
+\(\def\upEta{\unicode{x0397}}\)
+
+\(\def\upTheta{\unicode{x0398}}\)
+
+\(\def\upVartheta{\unicode{x03F4}}\)
+
+\(\def\upIota{\unicode{x0399}}\)
+
+\(\def\upKappa{\unicode{x039A}}\)
+
+\(\def\upLambda{\unicode{x039B}}\)
+
+\(\def\upMu{\unicode{x039C}}\)
+
+\(\def\upNu{\unicode{x039D}}\)
+
+\(\def\upXi{\unicode{x039E}}\)
+
+\(\def\upOmicron{\unicode{x039F}}\)
+
+\(\def\upPi{\unicode{x03A0}}\)
+
+\(\def\upVarpi{\unicode{x03D6}}\)
+
+\(\def\upRho{\unicode{x03A1}}\)
+
+\(\def\upSigma{\unicode{x03A3}}\)
+
+\(\def\upTau{\unicode{x03A4}}\)
+
+\(\def\upUpsilon{\unicode{x03A5}}\)
+
+\(\def\upPhi{\unicode{x03A6}}\)
+
+\(\def\upChi{\unicode{x03A7}}\)
+
+\(\def\upPsi{\unicode{x03A8}}\)
+
+\(\def\upOmega{\unicode{x03A9}}\)
+
+\(\def\itAlpha{\unicode{x1D6E2}}\)
+
+\(\def\itBeta{\unicode{x1D6E3}}\)
+
+\(\def\itGamma{\unicode{x1D6E4}}\)
+
+\(\def\itDigamma{\mathit{\unicode{x03DC}}}\)
+
+\(\def\itDelta{\unicode{x1D6E5}}\)
+
+\(\def\itEpsilon{\unicode{x1D6E6}}\)
+
+\(\def\itZeta{\unicode{x1D6E7}}\)
+
+\(\def\itEta{\unicode{x1D6E8}}\)
+
+\(\def\itTheta{\unicode{x1D6E9}}\)
+
+\(\def\itVartheta{\unicode{x1D6F3}}\)
+
+\(\def\itIota{\unicode{x1D6EA}}\)
+
+\(\def\itKappa{\unicode{x1D6EB}}\)
+
+\(\def\itLambda{\unicode{x1D6EC}}\)
+
+\(\def\itMu{\unicode{x1D6ED}}\)
+
+\(\def\itNu{\unicode{x1D6EE}}\)
+
+\(\def\itXi{\unicode{x1D6EF}}\)
+
+\(\def\itOmicron{\unicode{x1D6F0}}\)
+
+\(\def\itPi{\unicode{x1D6F1}}\)
+
+\(\def\itRho{\unicode{x1D6F2}}\)
+
+\(\def\itSigma{\unicode{x1D6F4}}\)
+
+\(\def\itTau{\unicode{x1D6F5}}\)
+
+\(\def\itUpsilon{\unicode{x1D6F6}}\)
+
+\(\def\itPhi{\unicode{x1D6F7}}\)
+
+\(\def\itChi{\unicode{x1D6F8}}\)
+
+\(\def\itPsi{\unicode{x1D6F9}}\)
+
+\(\def\itOmega{\unicode{x1D6FA}}\)
+
+\(\def\upalpha{\unicode{x03B1}}\)
+
+\(\def\upbeta{\unicode{x03B2}}\)
+
+\(\def\upvarbeta{\unicode{x03D0}}\)
+
+\(\def\upgamma{\unicode{x03B3}}\)
+
+\(\def\updigamma{\unicode{x03DD}}\)
+
+\(\def\updelta{\unicode{x03B4}}\)
+
+\(\def\upepsilon{\unicode{x03F5}}\)
+
+\(\def\upvarepsilon{\unicode{x03B5}}\)
+
+\(\def\upzeta{\unicode{x03B6}}\)
+
+\(\def\upeta{\unicode{x03B7}}\)
+
+\(\def\uptheta{\unicode{x03B8}}\)
+
+\(\def\upvartheta{\unicode{x03D1}}\)
+
+\(\def\upiota{\unicode{x03B9}}\)
+
+\(\def\upkappa{\unicode{x03BA}}\)
+
+\(\def\upvarkappa{\unicode{x03F0}}\)
+
+\(\def\uplambda{\unicode{x03BB}}\)
+
+\(\def\upmu{\unicode{x03BC}}\)
+
+\(\def\upnu{\unicode{x03BD}}\)
+
+\(\def\upxi{\unicode{x03BE}}\)
+
+\(\def\upomicron{\unicode{x03BF}}\)
+
+\(\def\uppi{\unicode{x03C0}}\)
+
+\(\def\upvarpi{\unicode{x03D6}}\)
+
+\(\def\uprho{\unicode{x03C1}}\)
+
+\(\def\upvarrho{\unicode{x03F1}}\)
+
+\(\def\upsigma{\unicode{x03C3}}\)
+
+\(\def\upvarsigma{\unicode{x03C2}}\)
+
+\(\def\uptau{\unicode{x03C4}}\)
+
+\(\def\upupsilon{\unicode{x03C5}}\)
+
+\(\def\upphi{\unicode{x03D5}}\)
+
+\(\def\upvarphi{\unicode{x03C6}}\)
+
+\(\def\upchi{\unicode{x03C7}}\)
+
+\(\def\uppsi{\unicode{x03C8}}\)
+
+\(\def\upomega{\unicode{x03C9}}\)
+
+\(\def\italpha{\unicode{x1D6FC}}\)
+
+\(\def\itbeta{\unicode{x1D6FD}}\)
+
+\(\def\itvarbeta{\unicode{x03D0}}\)
+
+\(\def\itgamma{\unicode{x1D6FE}}\)
+
+\(\def\itdigamma{\mathit{\unicode{x03DD}}}\)
+
+\(\def\itdelta{\unicode{x1D6FF}}\)
+
+\(\def\itepsilon{\unicode{x1D716}}\)
+
+\(\def\itvarepsilon{\unicode{x1D700}}\)
+
+\(\def\itzeta{\unicode{x1D701}}\)
+
+\(\def\iteta{\unicode{x1D702}}\)
+
+\(\def\ittheta{\unicode{x1D703}}\)
+
+\(\def\itvartheta{\unicode{x1D717}}\)
+
+\(\def\itiota{\unicode{x1D704}}\)
+
+\(\def\itkappa{\unicode{x1D705}}\)
+
+\(\def\itvarkappa{\unicode{x1D718}}\)
+
+\(\def\itlambda{\unicode{x1D706}}\)
+
+\(\def\itmu{\unicode{x1D707}}\)
+
+\(\def\itnu{\unicode{x1D708}}\)
+
+\(\def\itxi{\unicode{x1D709}}\)
+
+\(\def\itomicron{\unicode{x1D70A}}\)
+
+\(\def\itpi{\unicode{x1D70B}}\)
+
+\(\def\itvarpi{\unicode{x1D71B}}\)
+
+\(\def\itrho{\unicode{x1D70C}}\)
+
+\(\def\itvarrho{\unicode{x1D71A}}\)
+
+\(\def\itsigma{\unicode{x1D70E}}\)
+
+\(\def\itvarsigma{\unicode{x1D70D}}\)
+
+\(\def\ittau{\unicode{x1D70F}}\)
+
+\(\def\itupsilon{\unicode{x1D710}}\)
+
+\(\def\itphi{\unicode{x1D719}}\)
+
+\(\def\itvarphi{\unicode{x1D711}}\)
+
+\(\def\itchi{\unicode{x1D712}}\)
+
+\(\def\itpsi{\unicode{x1D713}}\)
+
+\(\def\itomega{\unicode{x1D714}}\)
+
+\(\let \lparen (\)
+
+\(\let \rparen )\)
+
+\(\newcommand {\cuberoot }[1]{\,{}^3\!\!\sqrt {#1}}\,\)
+
+\(\newcommand {\fourthroot }[1]{\,{}^4\!\!\sqrt {#1}}\,\)
+
+\(\newcommand {\longdivision }[1]{\mathord {\unicode {x027CC}#1}}\)
+
+\(\newcommand {\mathcomma }{,}\)
+
+\(\newcommand {\mathcolon }{:}\)
+
+\(\newcommand {\mathsemicolon }{;}\)
+
+\(\newcommand {\overbracket }[1]{\mathinner {\overline {\ulcorner {#1}\urcorner }}}\)
+
+\(\newcommand {\underbracket }[1]{\mathinner {\underline {\llcorner {#1}\lrcorner }}}\)
+
+\(\newcommand {\overbar }[1]{\mathord {#1\unicode {x00305}}}\)
+
+\(\newcommand {\ovhook }[1]{\mathord {#1\unicode {x00309}}}\)
+
+\(\newcommand {\ocirc }[1]{\mathord {#1\unicode {x0030A}}}\)
+
+\(\newcommand {\candra }[1]{\mathord {#1\unicode {x00310}}}\)
+
+\(\newcommand {\oturnedcomma }[1]{\mathord {#1\unicode {x00312}}}\)
+
+\(\newcommand {\ocommatopright }[1]{\mathord {#1\unicode {x00315}}}\)
+
+\(\newcommand {\droang }[1]{\mathord {#1\unicode {x0031A}}}\)
+
+\(\newcommand {\leftharpoonaccent }[1]{\mathord {#1\unicode {x020D0}}}\)
+
+\(\newcommand {\rightharpoonaccent }[1]{\mathord {#1\unicode {x020D1}}}\)
+
+\(\newcommand {\vertoverlay }[1]{\mathord {#1\unicode {x020D2}}}\)
+
+\(\newcommand {\leftarrowaccent }[1]{\mathord {#1\unicode {x020D0}}}\)
+
+\(\newcommand {\annuity }[1]{\mathord {#1\unicode {x020E7}}}\)
+
+\(\newcommand {\widebridgeabove }[1]{\mathord {#1\unicode {x020E9}}}\)
+
+\(\newcommand {\asteraccent }[1]{\mathord {#1\unicode {x020F0}}}\)
+
+\(\newcommand {\threeunderdot }[1]{\mathord {#1\unicode {x020E8}}}\)
+
+\(\newcommand {\Bbbsum }{\mathop {\unicode {x2140}}\limits }\)
+
+\(\newcommand {\oiint }{\mathop {\unicode {x222F}}\limits }\)
+
+\(\newcommand {\oiiint }{\mathop {\unicode {x2230}}\limits }\)
+
+\(\newcommand {\intclockwise }{\mathop {\unicode {x2231}}\limits }\)
+
+\(\newcommand {\ointclockwise }{\mathop {\unicode {x2232}}\limits }\)
+
+\(\newcommand {\ointctrclockwise }{\mathop {\unicode {x2233}}\limits }\)
+
+\(\newcommand {\varointclockwise }{\mathop {\unicode {x2232}}\limits }\)
+
+\(\newcommand {\leftouterjoin }{\mathop {\unicode {x27D5}}\limits }\)
+
+\(\newcommand {\rightouterjoin }{\mathop {\unicode {x27D6}}\limits }\)
+
+\(\newcommand {\fullouterjoin }{\mathop {\unicode {x27D7}}\limits }\)
+
+\(\newcommand {\bigbot }{\mathop {\unicode {x27D8}}\limits }\)
+
+\(\newcommand {\bigtop }{\mathop {\unicode {x27D9}}\limits }\)
+
+\(\newcommand {\xsol }{\mathop {\unicode {x29F8}}\limits }\)
+
+\(\newcommand {\xbsol }{\mathop {\unicode {x29F9}}\limits }\)
+
+\(\newcommand {\bigcupdot }{\mathop {\unicode {x2A03}}\limits }\)
+
+\(\newcommand {\bigsqcap }{\mathop {\unicode {x2A05}}\limits }\)
+
+\(\newcommand {\conjquant }{\mathop {\unicode {x2A07}}\limits }\)
+
+\(\newcommand {\disjquant }{\mathop {\unicode {x2A08}}\limits }\)
+
+\(\newcommand {\bigtimes }{\mathop {\unicode {x2A09}}\limits }\)
+
+\(\newcommand {\modtwosum }{\mathop {\unicode {x2A0A}}\limits }\)
+
+\(\newcommand {\sumint }{\mathop {\unicode {x2A0B}}\limits }\)
+
+\(\newcommand {\intbar }{\mathop {\unicode {x2A0D}}\limits }\)
+
+\(\newcommand {\intBar }{\mathop {\unicode {x2A0E}}\limits }\)
+
+\(\newcommand {\fint }{\mathop {\unicode {x2A0F}}\limits }\)
+
+\(\newcommand {\cirfnint }{\mathop {\unicode {x2A10}}\limits }\)
+
+\(\newcommand {\awint }{\mathop {\unicode {x2A11}}\limits }\)
+
+\(\newcommand {\rppolint }{\mathop {\unicode {x2A12}}\limits }\)
+
+\(\newcommand {\scpolint }{\mathop {\unicode {x2A13}}\limits }\)
+
+\(\newcommand {\npolint }{\mathop {\unicode {x2A14}}\limits }\)
+
+\(\newcommand {\pointint }{\mathop {\unicode {x2A15}}\limits }\)
+
+\(\newcommand {\sqint }{\mathop {\unicode {x2A16}}\limits }\)
+
+\(\newcommand {\intlarhk }{\mathop {\unicode {x2A17}}\limits }\)
+
+\(\newcommand {\intx }{\mathop {\unicode {x2A18}}\limits }\)
+
+\(\newcommand {\intcap }{\mathop {\unicode {x2A19}}\limits }\)
+
+\(\newcommand {\intcup }{\mathop {\unicode {x2A1A}}\limits }\)
+
+\(\newcommand {\upint }{\mathop {\unicode {x2A1B}}\limits }\)
+
+\(\newcommand {\lowint }{\mathop {\unicode {x2A1C}}\limits }\)
+
+\(\newcommand {\bigtriangleleft }{\mathop {\unicode {x2A1E}}\limits }\)
+
+\(\newcommand {\zcmp }{\mathop {\unicode {x2A1F}}\limits }\)
+
+\(\newcommand {\zpipe }{\mathop {\unicode {x2A20}}\limits }\)
+
+\(\newcommand {\zproject }{\mathop {\unicode {x2A21}}\limits }\)
+
+\(\newcommand {\biginterleave }{\mathop {\unicode {x2AFC}}\limits }\)
+
+\(\newcommand {\bigtalloblong }{\mathop {\unicode {x2AFF}}\limits }\)
+
+\(\newcommand {\arabicmaj }{\mathop {\unicode {x1EEF0}}\limits }\)
+
+\(\newcommand {\arabichad }{\mathop {\unicode {x1EEF1}}\limits }\)
+
+\(\newcommand {\nicefrac }[3][]{\mathinner {{}^{#2}\!/\!_{#3}}}\)
+
+\(\newcommand {\toprule }[1][]{\hline }\)
+
+\(\let \midrule \toprule \)
+
+\(\let \bottomrule \toprule \)
+
+\(\def \LWRbooktabscmidruleparen (#1)#2{}\)
+
+\(\newcommand {\LWRbooktabscmidrulenoparen }[1]{}\)
+
+\(\newcommand {\cmidrule }[1][]{\ifnextchar (\LWRbooktabscmidruleparen \LWRbooktabscmidrulenoparen }\)
+
+\(\newcommand {\morecmidrules }{}\)
+
+\(\newcommand {\specialrule }[3]{\hline }\)
+
+\(\newcommand {\addlinespace }[1][]{}\)
+
+\(\newcommand {\LWRsubmultirow }[2][]{#2}\)
+
+\(\newcommand {\LWRmultirow }[2][]{\LWRsubmultirow }\)
+
+\(\newcommand {\multirow }[2][]{\LWRmultirow }\)
+
+\(\newcommand {\mrowcell }{}\)
+
+\(\newcommand {\mcolrowcell }{}\)
+
+\(\newcommand {\STneed }[1]{}\)
+
+\(\renewcommand {\phi }{\varphi }\)
+
+\(\renewcommand {\epsilon }{\varepsilon }\)
+
+\(\DeclareMathOperator {\const }{const}\)
+
+\(\DeclareMathOperator {\inv }{inv}\)
+
+\(\newcommand {\Laplasian }{\Delta }\)
+
+\(\newcommand {\vect }[1]{\mathbf {#1}}\)
+
+\(\newcommand {\Efield }{\vect {E}}\)
+
+\(\newcommand {\Dfield }{\vect {D}}\)
+
+\(\newcommand {\Bfield }{\vect {B}}\)
+
+\(\newcommand {\Hfield }{\vect {H}}\)
+
+\(\newcommand {\emf }{ℰ}\)
+
+\(\newcommand {\tikzmarknode }[2]{#2}\)
+
+\(\newcommand {\tikzmark }[1]{}\)
+
+\(\newcommand {\enquote }[1]{«#1»}\)
+
+\(\newcommand {\allowbreak }{}\)
+
+\(\newcommand {\mitlambda }{\lambda }\)
+
+\(\newcommand {\mitomega }{\omega }\)
+
+\(\newcommand {\mittheta }{\theta }\)
+
+\(\newcommand {\mitphi }{\varphi }\)
+
+\(\newcommand {\tcbhighmath }[1]{\boxed {#1}}\)
+
+\(\DeclareMathOperator {\sh }{sh}\)
+
+\(\DeclareMathOperator {\ch }{ch}\)
+
+\(\DeclareMathOperator {\tg }{tg}\)
+
+\(\DeclareMathOperator {\ctg }{ctg}\)
+
+\(\DeclareMathOperator {\arctg }{arctg}\)
+
+\(\DeclareMathOperator {\arcctg }{arcctg}\)
+
+\(\DeclareMathOperator {\cth }{cth}\)
+
+\(\DeclareMathOperator {\cosec }{cosec}\)
+
+\(\let \symsf \symsfup \)
+
+\(\def\Alpha{\unicode{x0391}}\)
+
+\(\def\Beta{\unicode{x0392}}\)
+
+\(\def\Gamma{\unicode{x0393}}\)
+
+\(\def\Digamma{\unicode{x03DC}}\)
+
+\(\def\Delta{\unicode{x0394}}\)
+
+\(\def\Epsilon{\unicode{x0395}}\)
+
+\(\def\Zeta{\unicode{x0396}}\)
+
+\(\def\Eta{\unicode{x0397}}\)
+
+\(\def\Theta{\unicode{x0398}}\)
+
+\(\def\Vartheta{\unicode{x03F4}}\)
+
+\(\def\Iota{\unicode{x0399}}\)
+
+\(\def\Kappa{\unicode{x039A}}\)
+
+\(\def\Lambda{\unicode{x039B}}\)
+
+\(\def\Mu{\unicode{x039C}}\)
+
+\(\def\Nu{\unicode{x039D}}\)
+
+\(\def\Xi{\unicode{x039E}}\)
+
+\(\def\Omicron{\unicode{x039F}}\)
+
+\(\def\Pi{\unicode{x03A0}}\)
+
+\(\def\Varpi{\unicode{x03D6}}\)
+
+\(\def\Rho{\unicode{x03A1}}\)
+
+\(\def\Sigma{\unicode{x03A3}}\)
+
+\(\def\Tau{\unicode{x03A4}}\)
+
+\(\def\Upsilon{\unicode{x03A5}}\)
+
+\(\def\Phi{\unicode{x03A6}}\)
+
+\(\def\Chi{\unicode{x03A7}}\)
+
+\(\def\Psi{\unicode{x03A8}}\)
+
+\(\def\Omega{\unicode{x03A9}}\)
+
+\(\def\alpha{\unicode{x1D6FC}}\)
+
+\(\def\beta{\unicode{x1D6FD}}\)
+
+\(\def\varbeta{\unicode{x03D0}}\)
+
+\(\def\gamma{\unicode{x1D6FE}}\)
+
+\(\def\digamma{\mathit{\unicode{x03DD}}}\)
+
+\(\def\delta{\unicode{x1D6FF}}\)
+
+\(\def\epsilon{\unicode{x1D716}}\)
+
+\(\def\varepsilon{\unicode{x1D700}}\)
+
+\(\def\zeta{\unicode{x1D701}}\)
+
+\(\def\eta{\unicode{x1D702}}\)
+
+\(\def\theta{\unicode{x1D703}}\)
+
+\(\def\vartheta{\unicode{x1D717}}\)
+
+\(\def\iota{\unicode{x1D704}}\)
+
+\(\def\kappa{\unicode{x1D705}}\)
+
+\(\def\varkappa{\unicode{x1D718}}\)
+
+\(\def\lambda{\unicode{x1D706}}\)
+
+\(\def\mu{\unicode{x1D707}}\)
+
+\(\def\nu{\unicode{x1D708}}\)
+
+\(\def\xi{\unicode{x1D709}}\)
+
+\(\def\omicron{\unicode{x1D70A}}\)
+
+\(\def\pi{\unicode{x1D70B}}\)
+
+\(\def\varpi{\unicode{x1D71B}}\)
+
+\(\def\rho{\unicode{x1D70C}}\)
+
+\(\def\varrho{\unicode{x1D71A}}\)
+
+\(\def\sigma{\unicode{x1D70E}}\)
+
+\(\def\varsigma{\unicode{x1D70D}}\)
+
+\(\def\tau{\unicode{x1D70F}}\)
+
+\(\def\upsilon{\unicode{x1D710}}\)
+
+\(\def\phi{\unicode{x1D719}}\)
+
+\(\def\varphi{\unicode{x1D711}}\)
+
+\(\def\chi{\unicode{x1D712}}\)
+
+\(\def\psi{\unicode{x1D713}}\)
+
+\(\def\omega{\unicode{x1D714}}\)
+
+</div>
+
+<!--
+...... chapter Кільця Ньютона ......
+-->
+<h3 id="autosec-57">Робота&nbsp;<span class="sectionnumber">3&#x2003;</span>Кільця Ньютона</h3>
+<a id="main-html-autopage-57"></a>
+<a id="main-html-autofile-4"></a>
+
+
+<div class="cb-labgoal">
+
+<p>
+<b>Мета роботи</b>
+</p>
+
+<p>
+Ознайомлення з явищем інтерференції в тонких плівках (смуги рівної товщини) на прикладі кілець Ньютона і з методикою інтерференційних вимірювань кривизни скляної поверхні.
+</p>
+
+<p>
+<b>Ключові слова</b>: <i>когерентність, інтерференція світла, оптична довжина ходу хвилі, інтерференційна схема</i>
+</p>
+
+</div>
+<!--
+...... section Теоретичне підґрунтя ......
+-->
+<h4 id="autosec-58"><span class="sectionnumber">1&#x2003;</span>Теоретичне підґрунтя</h4>
+<a id="main-html-autopage-58"></a>
+
+
+<p>
+Кільця Ньютона утворюються при інтерференції світлових хвиль, відбитих від границь тонкого повітряного прошарку, який знаходиться між опуклою поверхнею лінзи і плоскою скляною пластинкою (рис.&nbsp;<a href="lab5_4.html#pic1">3.1</a>). Спостереження ведеться у відбитому світлі.
+</p>
+<div class="marginblock" role="note" style="width:173pt; float:right; ">
+<div class="center">
+
+<p>
+<span
+    id="lateximage-main-html-9"
+    class="lateximagesource"
+><!--
+1   2           𝑅
+
+
+
+
+        1′ 2′
+
+
+                         𝑑
+                    𝑑0
+
+
+          𝑟𝑚
+--><img
+    src="main-html-images/image-9.svg"
+    alt="Рис. 3.1. Утворення кілець Ньютона"
+    style=""
+    class="lateximage"
+></span>
+</p>
+</div>
+
+
+<div class="figurecaption">
+
+<a id="autoid-11" ></a >
+Рис.&nbsp;3.1. Утворення кілець Ньютона
+
+</div>
+
+<a id="pic1"></a>
+
+</div>
+
+<p>
+Нехай на систему згори падає монохроматичний паралельний пучок променів. Частина променів (промінь 1 на рис.&nbsp;<a href="lab5_4.html#pic1">3.1</a> ) відбивається від верхнього краю пластини, а інша частина(промінь 2 на рис.&nbsp;<a href="lab5_4.html#pic1">3.1</a>) від
+нижнього краю лінзи.
+</p>
+
+<p>
+Промені \(1&apos;\) та \(2&apos;\) когерентні, але між ними виникає різниця ходу. Роль тонкої плівки виконує повітряний проміжок між пластиною та лінзою.Нехай на систему згори падає монохроматичний паралельний пучок променів. Частина променів (промінь 1 на рис.&nbsp;<a
+href="lab5_4.html#pic1">3.1</a>) відбивається від верхнього краю пластини, а інша частина(промінь \(2\) на рис.&nbsp;<a href="lab5_4.html#pic1">3.1</a>) від нижнього краю лінзи. Промені \(1&apos;\) та \(2&apos;\) когерентні, але між ними виникає різниця ходу. В першому наближені, як
+що знехтувати невеликим нахилом променів у повітряному зазорі, геометрична різниця ходу дорівнює:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{3.}{0}\)</span>
+
+<!--
+
+
+                                                                                                                                      𝛿′ = 2(𝑑 + 𝑑0 )                                                                                                                                 (3.1)
+
+-->
+
+<p>
+
+\begin{equation}
+\delta &apos; =2(d+d_{0})
+\end{equation}
+
+</p>
+
+<p>
+де \(d_{0}\)&nbsp;— товщина зазору в місці контакту лінзи та пластини, яка може бути як додатною, наприклад, за наявності часток пилу між лінзою та пластиною, який викликає деформацію; \(d_{0}+d\)&nbsp;— товщина повітряного зазору на відстані \(r_m\) від центру лінзи. Для того, щоб
+визначити повну різницю ходу \(d\) треба прийняти до уваги зміну фаз світлової хвилі під час відбиття від гранці поділу скло-повітря,коли показник заломлення першого середовища більше за показник заломлення другого, та під час відбиття від гранці повітря-скло, коли навпаки показник
+заломлення першого середовища менше за показник заломлення другого. Відомо, що для електричного вектора у першому випадку відбиття відбувається без зміни фаз, а в другому призводить до зміни фаз на \(\pi \); фаза магнітного вектора, навпаки,змінюється на \(\pi \) тільки під час
+першого відбиття. Таким чином, промені 1 і 2 набувають різниці фаз \(\pi \), що відповідає додатковій різниці ходу \(\lambda /2\), а повна різниця ходу:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{3.}{1}\)</span>
+
+<!--
+
+
+                                                                                                                                   𝛿 = 2(𝑑 + 𝑑0 ) + 𝜆/2.                                                                                                                              (3.2)
+
+-->
+
+<p>
+
+\begin{equation}
+\delta =2(d+d_{0})+\lambda /2.
+\end{equation}
+</p>
+
+<p>
+Якщо форма лінзи близька до сферичної з радіусом кривизни \(R \gg r_m\), то геометричного міркувань \(r^2_m = 2Rd \), і
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{3.}{2}\)</span>
+
+<!--
+
+                                                                                                                                       2 /𝑅 + 2𝑑 + 𝜆/2.
+                                                                                                                                  𝛿 = 𝑟𝑚        0                                                                                           (3.3)
+
+-->
+
+<p>
+
+\begin{equation}
+\delta =r^2_m/R+2d_{0}+\lambda /2.
+\end{equation}
+
+</p>
+
+<p>
+Якщо повна різниця ходу дорівнює \(\lambda (m+1/2)\), то промені 1 і 2 гаситимуть один одного і спостерігатимуться темні плями(кільця). Радіус цих кілець \(r_\text {тем}\) легко розрахувати за формулою:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{3.}{3}\)</span>
+
+<!--
+
+                                                                                               2 = 𝑅(𝜆𝑚 − 2𝑑 )
+                                                                                              𝑟тем          0                                                                                                 (3.4)   --><a id="rdark"></a><!--
+
+-->
+
+<p>
+
+\begin{equation}
+\label {rdark} r_\text {тем}^2=R(\lambda m-2d_{0})
+\end{equation}
+
+</p>
+
+<p>
+Аналогічно, для радіуса світлих кілець \(r_\text {світ}\) маємо:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{3.}{4}\)</span>
+
+<!--
+
+                                                                                           2
+                                                                                          𝑟світ = 𝑅(𝜆𝑚 − 2𝑑0 − 𝜆/2)                                                                                          (3.5)    --><a id="rlight"></a><!--
+
+-->
+
+<p>
+
+\begin{equation}
+\label {rlight} r_\text {світ}^2=R(\lambda m-2d_{0}-\lambda /2)
+\end{equation}
+
+</p>
+
+<p>
+Отже, за графіком залежності \(r^2_m\) від номеру кільця можна визначити радіус кривизни лінзи, а також величину проміжку в місці контакту.
+</p>
+<!--
+...... section Експерементальні подробиці ......
+-->
+<h4 id="autosec-64"><span class="sectionnumber">2&#x2003;</span>Експерементальні подробиці</h4>
+<a id="main-html-autopage-64"></a>
+<div class="marginblock" role="note" style="width:217pt; float:right; ">
+<table>
+
+<tr style="display:none"><th>.</th></tr>
+
+<tr class="tbrule">
+<td class="tdl">Колір</td>
+<td class="tdc">Довжина хвилі \(\lambda \),&nbsp;нм</td>
+</tr>
+
+<tr class="hline">
+<td class="tdl" style="background:#F2E5F2">Фіолетовий</td>
+<td class="tdc" style="background:#F2E5F2">\(404 \pm 10\)</td>
+</tr>
+
+<tr>
+<td class="tdl" style="background:#E5E5FF">Синій</td>
+<td class="tdc" style="background:#E5E5FF">\(434 \pm 10\)</td>
+</tr>
+
+<tr>
+<td class="tdl" style="background:#E5FFFF">Блакитний</td>
+<td class="tdc" style="background:#E5FFFF">\(486 \pm 10 \)</td>
+</tr>
+
+<tr>
+<td class="tdl" style="background:#E5FFE5">Зелений</td>
+<td class="tdc" style="background:#E5FFE5">\(546 \pm 10 \)</td>
+</tr>
+
+<tr>
+<td class="tdl" style="background:#FFFFE5">Жовтий</td>
+<td class="tdc" style="background:#FFFFE5">\(586 \pm 10 \)</td>
+</tr>
+
+<tr>
+<td class="tdl" style="background:#FFF2E5">Оранжевий</td>
+<td class="tdc" style="background:#FFF2E5">\(656 \pm 10 \)</td>
+</tr>
+
+<tr>
+<td class="tdl" style="background:#FFE5E5">Червоний</td>
+<td class="tdc" style="background:#FFE5E5">\(706 \pm 10 \)</td>
+</tr>
+
+<tr class="tbrule" aria-hidden="true">
+<td class="tdl"></td>
+<td class="tdc"></td>
+</tr>
+</table>
+
+
+<div class="figurecaption">
+
+<a id="autoid-12" ></a >
+Таблиця&nbsp;3.1. Довжини хвиль
+
+</div>
+
+<a id="WaveLength"></a>
+
+</div>
+
+<p>
+В даній лабораторній роботі кільця Ньютона досліджується за допомогою мікроскопа. На столику мікроскопа розташоване держак, на якому розміщується досліджувана лінза з пластиною. В одному з окулярів мікроскопа встановлюється освітювач, що генерує пучок променів, паралельних тим,
+що падають в околі спостерігача. Для монохроматизації пучка перед освітлювачем встановлюють фільтр. В комплект входять 7 фільтрів, що створюють монохроматичні пучки, довжини хвилі яких наведені в таблиці&nbsp;<a href="lab5_4.html#WaveLength">3.1</a>.
+</p>
+
+<p>
+На початку експерименту рекомендуються знайти кільця Ньютона в білому світлі (без фільтра) і сфокусувати мікроскоп під своє око. Перехрестя шкал мікроскопа повинно проходити через центр кілець. Після цього можна встановити фільтр і переходити до безпосередніх вимірювань радіусу
+кілець. Для вимірювань на окулярі мікроскопа нанесено спеціальну шкалу з поділками. Ціну поділки для кожного значення збільшення вказано в інструкції до мікроскопа.
+</p>
+
+<p>
+Вимірювати радіус кілець слід від центру системи до середини кільця. Для збільшення точності рекомендуємо після першої серії вимірів із заданим фільтром повернути лінзу на \(90^\circ \) навколо вертикальної осі і повторити виміри. Якщо робота виконується двома студентами, то
+рекомендуємо провести виміри кожному з студентів, а потім порівняти й усереднити одержані результати.
+</p>
+<!--
+...... section Контрольні запитання ......
+-->
+<h4 id="autosec-68">Контрольні запитання</h4>
+<a id="main-html-autopage-68"></a>
+
+
+<ul class="enumerate" style="list-style-type:none">
+
+<li>
+<p>
+<span class="listmarker">1.</span> Від чого залежить кількість спостережуваних кілець?
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">2.</span> Чому кільця, що спостерігаються мають райдужне забарвлення?
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">3.</span> Чому по мірі віддалення від центру кільця розташовуються ближче один до одного?
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">4.</span> Що станеться з кільцями Ньютона, якщо проміжок між лінзою і пластинкою заповнити рідиною?
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">5.</span> Чи можна при спостережені кілець Ньютона у відбитому світлі отримати в центрі не темне, а світле кільце? Якщо так, то сформулюйте умови, які для цього необхідні.
+</p>
+</li>
+</ul>
+
+</section>
+
+</main>
+
+
+<nav class="botnavigation"><a href="main-html.html" class="linkhome" >
+Головна</a></nav>
+
+</div><!-- grid -->
+<script src="assets/book.js" defer></script>
+</body>
+</html>

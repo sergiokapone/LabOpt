@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+    <title>Оптика | Лабораторний практикум</title>
+    <meta name="description" content="Навчальний посібник «Оптика. Лабораторний практикум»: інтерференція, дифракція й поляризація світла — теорія та п'ять лабораторних робіт. PDF і онлайн-версія.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://sergiokapone.github.io/LabOpt/">
+
+    <meta property="og:title" content="Оптика | Лабораторний практикум">
+    <meta property="og:description" content="Інтерференція, дифракція й поляризація світла: теорія та п'ять лабораторних робіт.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://sergiokapone.github.io/LabOpt/">
+
+    <script>(function(){var r=document.documentElement;try{var d=localStorage.getItem('labopt-design');r.setAttribute('data-design',['field','blueprint','book'].indexOf(d)>-1?d:'field');var t=localStorage.getItem('labopt-theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme: dark)').matches)){r.classList.add('dark');}}catch(e){r.setAttribute('data-design','field');}})();</script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&family=Literata:ital,opsz,wght@0,7..72,400..600;1,7..72,400..600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap">
+
+    <link rel="stylesheet" href="assets/styles.css">
+    <link rel="stylesheet" href="assets/designs.css">
+    <style>
+        .hero-actions{display:flex;flex-wrap:wrap;justify-content:center;gap:.8rem;position:relative;z-index:1}
+        .pdf-button-primary{background:var(--gold);border-color:var(--gold);color:#1b0e0c}
+        .pdf-button-primary .btn-icon{color:inherit}
+        .pdf-button-primary:hover{background:var(--gold-bright);border-color:var(--gold-bright);color:#1b0e0c}
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <div class="pdf-hero">
+        <div class="hero-tools">
+            <div class="design-switch" role="group" aria-label="Дизайн сторінки">
+                <button type="button" data-design="field" aria-pressed="true">Поле</button>
+                <button type="button" data-design="blueprint" aria-pressed="false">Креслення</button>
+                <button type="button" data-design="book" aria-pressed="false">Книга</button>
+            </div>
+            <button class="theme-toggle" id="theme-toggle" type="button" title="Перемкнути тему" aria-label="Перемкнути тему">🌙</button>
+        </div>
+        <h1>Оптика</h1>
+        <div class="subtitle">Лабораторний практикум</div>
+        <div class="hero-rule"></div>
+        <div class="hero-actions">
+            <a href="LabWork.pdf" class="pdf-button pdf-button-primary">
+                <span class="btn-icon">&#8595;</span> Завантажити посібник (PDF)
+            </a>
+            <a href="online/" class="pdf-button">
+                <span class="btn-icon">&#9776;</span> Читати онлайн
+            </a>
+        </div>
+        <p class="pdf-note">Повна версія у форматі PDF; ту саму книгу можна читати онлайн. Пункти змісту нижче відкривають онлайн-версію на потрібному місці.</p>
+    </div>
+
+    <div class="content">
+
+        <div class="section">
+            <h2 class="section-heading">Автори</h2>
+            <div class="authors">
+                <div class="author-card">
+                    <strong><a href="https://apd.ipt.kpi.ua/kafedra/stuff/ponomarenko/" target="_blank">Пономаренко Сергій Миколайович</a></strong>
+                    <p>Кандидат фізико-математичних наук, доцент кафедри прикладної фізики КПІ ім. Ігоря Сікорського.</p>
+                </div>
+                <div class="author-card">
+                    <strong><a href="http://apd.ipt.kpi.ua/kafedra/perspages/IvanovaVV.html" target="_blank">Іванова Віта Вікторівна</a></strong>
+                    <p>Кандидат технічних наук, доцент кафедри прикладної фізики КПІ ім. Ігоря Сікорського.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="preface">
+            <h2>Про посібник</h2>
+            <p>Навчальний посібник містить зміст, основні складові та порядок виконання лабораторних робіт з дисципліни <strong>«Оптика»</strong> для студентів Фізико-технічного інституту КПІ ім. Ігоря Сікорського, які навчаються за спеціальністю 105 «Прикладна фізика та наноматеріали».</p>
+            <p>Кожна з трьох частин — інтерференція, дифракція й поляризація світла — починається коротким теоретичним викладом, після якого йдуть лабораторні роботи: мета, теоретичне підґрунтя, опис установки, хід роботи й контрольні запитання.</p>
+        </div>
+
+        <!-- ── Зміст ─────────────────────────────────────────────────── -->
+        <div class="section" id="toc-section">
+            <h2 class="section-heading">Зміст</h2>
+            <div class="toc-controls">
+                <button type="button" id="toc-expand-all" class="toc-ctrl-btn">Розгорнути все</button>
+                <button type="button" id="toc-collapse-all" class="toc-ctrl-btn">Згорнути все</button>
+            </div>
+            <ul class="toc-list">
+                <li>
+                    <span class="toc-num">I</span>
+                    <a href="online/interferention.html" class="toc-title">Теорія: Інтерференція світла</a>
+                    <ul class="sub-list">
+                        <li><a href="online/interferention.html#autosec-7">1 Означення</a></li>
+                        <li><a href="online/interferention.html#autosec-8">2 Різниця ходу хвиль</a></li>
+                        <li><a href="online/interferention.html#autosec-9">3 Ітерференційні схеми</a></li>
+                        <li><a href="online/interferention.html#autosec-22">4 Реальні схеми спостерження інтерференції</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <span class="toc-num">1</span>
+                    <a href="online/lab5_3p1.html" class="toc-title">Вивчення інтерференції світла при відбиванні від товстої скляної пластини</a>
+                    <ul class="sub-list">
+                        <li><a href="online/lab5_3p1.html#autosec-25">1 Теоретичне підґрунтя</a></li>
+                        <li><a href="online/lab5_3p1.html#autosec-35">2 Опис робочої установки</a></li>
+                        <li><a href="online/lab5_3p1.html#autosec-39">3 Експериментальні подробиці</a></li>
+                        <li><a href="online/lab5_3p1.html#autosec-40">4 Хід роботи</a></li>
+                        <li><a href="online/lab5_3p1.html#autosec-41">Контрольні запитання</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <span class="toc-num">2</span>
+                    <a href="online/lab5_3p2.html" class="toc-title">Вивчення інтерференції світла за допомогою біпризми Френеля</a>
+                    <ul class="sub-list">
+                        <li><a href="online/lab5_3p2.html#autosec-44">1 Теоретичне підґрунтя</a></li>
+                        <li><a href="online/lab5_3p2.html#autosec-50">2 Опис робочої установки</a></li>
+                        <li><a href="online/lab5_3p2.html#autosec-54">3 Хід роботи</a></li>
+                        <li><a href="online/lab5_3p2.html#autosec-55">Контрольні запитання</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <span class="toc-num">3</span>
+                    <a href="online/lab5_4.html" class="toc-title">Кільця Ньютона</a>
+                    <ul class="sub-list">
+                        <li><a href="online/lab5_4.html#autosec-58">1 Теоретичне підґрунтя</a></li>
+                        <li><a href="online/lab5_4.html#autosec-64">2 Експерементальні подробиці</a></li>
+                        <li><a href="online/lab5_4.html#autosec-68">Контрольні запитання</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <span class="toc-num">II</span>
+                    <a href="online/difraction.html" class="toc-title">Теорія: Дифракція світла</a>
+                    <ul class="sub-list">
+                        <li><a href="online/difraction.html#autosec-72">1 Означення</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <span class="toc-num">4</span>
+                    <a href="online/lab5_5.html" class="toc-title">Дифракція світла від точкового джерела</a>
+                    <ul class="sub-list">
+                        <li><a href="online/lab5_5.html#autosec-81">1 Експерементальні подробиці</a></li>
+                        <li><a href="online/lab5_5.html#autosec-85">2 Хід експерименту</a></li>
+                        <li><a href="online/lab5_5.html#autosec-89">Контрольні запитання</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <span class="toc-num">III</span>
+                    <a href="online/polarization.html" class="toc-title">Теорія: Поляризація світла</a>
+                    <ul class="sub-list">
+                        <li><a href="online/polarization.html#autosec-93">1 Означення</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <span class="toc-num">5</span>
+                    <a href="online/lab5_7.html" class="toc-title">Поляризація світла</a>
+                    <ul class="sub-list">
+                        <li><a href="online/lab5_7.html#autosec-113">1 Експериментальні подробиці</a></li>
+                        <li><a href="online/lab5_7.html#autosec-114">2 Хід експерименту</a></li>
+                        <li><a href="online/lab5_7.html#autosec-118">3 Обробка результатів експерименту</a></li>
+                        <li><a href="online/lab5_7.html#autosec-119">Контрольні запитання</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <!-- ── /Зміст ──────────────────────────────────────────────────── -->
+
+        <hr>
+        <p class="ref-links">
+            <a href="https://apd.ipt.kpi.ua/kafedra/stuff/ponomarenko/" target="_blank">Пономаренко С.М.</a>
+        </p>
+
+    </div><!-- /content -->
+
+    <footer>
+        Оптика &nbsp;|&nbsp; Лабораторний практикум<br>
+        Кафедра прикладної фізики, КПІ ім. Ігоря Сікорського
+    </footer>
+
+</div><!-- /container -->
+
+<button class="back-to-top" id="back-to-top" type="button" title="Нагору" aria-label="Прогорнути нагору">↑</button>
+
+<script src="assets/script.js"></script>
+</body>
+</html>

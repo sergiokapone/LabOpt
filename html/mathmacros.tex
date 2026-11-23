@@ -1,0 +1,13 @@
+% Математичні макроси посібника: ті самі, що в LabBook.cls (\AtBeginDocument{...}).
+% LabBookHTML.cls читає їх (через _html/shared-mathmacros.tex), mathjax2lwarp.py віддає ті самі MathJax.
+% Змінюючи макроси в LabBook.cls, змініть і тут.
+\let\phi\varphi
+\let\epsilon\varepsilon
+\DeclareMathOperator{\const}{const}
+\DeclareMathOperator{\inv}{inv}
+\newcommand{\Laplasian}{\Delta}
+\newcommand{\vect}[1]{\symbf{#1}}
+\def\Efield{\vect{E}}
+\def\Dfield{\vect{D}}
+\def\Bfield{\vect{B}}
+\def\Hfield{\vect{H}}
